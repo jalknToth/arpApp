@@ -1,10 +1,10 @@
 # arpApp
 
-Una aplicación web simple en Python para consultar el clima de una ciudad.
+
 
 ## Descripción
 
-ClimaApp utiliza la API de OpenWeatherMap para obtener información meteorológica y la presenta al usuario en una interfaz web amigable.  Permite buscar el clima por nombre de ciudad y muestra la temperatura actual, la descripción del clima y un icono representativo. Tambien puedes conectarla a tu base de datos para cada informacion. 
+
 
 ## Capturas de Pantalla
 
@@ -41,7 +41,7 @@ arpApp/
 git clone https://github.com/jalknToth/arpApp.git
 ```
 
-2. Crea un archivo `.env` en la raíz del proyecto y agrega tu clave de API de OpenWeatherMap:
+2. Crea un archivo `.env` en la raíz del proyecto 
 
 3. Instala las dependencias:
 
