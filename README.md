@@ -38,16 +38,10 @@ arpApp/
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/tu_usuario/climapp.git
+git clone https://github.com/jalknToth/arpApp.git
 ```
 
 2. Crea un archivo `.env` en la raíz del proyecto y agrega tu clave de API de OpenWeatherMap:
-
-```
-API_KEY=tu_clave_api
-```
-
-Puedes obtener una clave API gratuita en [https://openweathermap.org/](https://openweathermap.org/).
 
 3. Instala las dependencias:
 
@@ -67,9 +61,9 @@ python server.py
 
 ## Uso
 
-1. Ingresa el nombre de la ciudad en el campo de búsqueda de la página principal.
-2. Haz clic en el botón "Buscar".
-3. La información meteorológica de la ciudad se mostrará en una nueva página.
+1. 
+2.
+3.
 
 ## Contribuciones
 
