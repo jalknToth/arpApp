@@ -1,4 +1,4 @@
-# ClimaApp
+# arpApp
 
 Una aplicación web simple en Python para consultar el clima de una ciudad.
 
@@ -15,21 +15,22 @@ ClimaApp utiliza la API de OpenWeatherMap para obtener información meteorológi
 ## Estructura del proyecto
 
 ```
-climapp/
-├── static/             # Archivos estáticos (CSS)
+arpApp/
+├── static/             # Static files (CSS)
 │   └── style.css
-├── templates/          # Plantillas HTML
-│   ├── error.html      # Página de error
-│   ├── index.html      # Página principal
-│   └── weather.html    # Página con la información del clima
-├── .gitignore          # Archivos ignorados por Git
-├── .git                # Directorio de Git
-├── .env                # Variables de entorno (API Key)
-├── README.md           # Informacion del proyecto
-├── requirements.txt    # Dependencias del proyecto
-├── structure.txt       # Archivo de estructura (este README)
-├── server.py           # Script principal del servidor Flask
-└── weather.py          # Módulo para interactuar con la API de OpenWeatherMap
+├── templates/          # HTML templates
+├── uploads/            # Upload directory
+│   ├── error.html      # Error page
+│   ├── index.html      # Main page
+│   └── excelData.html  # Page to display Excel data
+├── .gitignore          # Files ignored by Git
+├── .git                # Git directory 
+├── .env                # Environment variables 
+├── README.md           # Project information
+├── requirements.txt    # Project dependencies
+├── structure.txt       # Structure file (this README)
+├── server.py           # Main Flask server script
+└── excelReader.py     # Module to process Excel files
 ```
 
 ## Instalación

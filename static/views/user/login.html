@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>R P A</title>
+      <link rel="shortcut icon" href="/public/img/favicon.png" type="image/x-icon">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/rpApp/public/css/style.css">
+</head>
+
+<body>
+
+  <div class="item">
+    <a href="./home.html"><i class="fa fa-eye"></i> test </a>
+  </div>
+
+  <div class="item">
+    <a href="./login.html"><i class="logo" id="logo"></i></a>
+  </div>
+
+    <?php if (isset($error)): ?>
+        <p><?php echo $error; ?></p>  
+    <?php endif; ?>
+
+    <div class="container" id="container">
+      <div class="form">
+        <form method="post">
+          <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="email" id="correo" name="correo" placeholder="Usuario" required autofocus >
+          </div>
+          <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+          </div>
+
+          <button type="submit"><i class="fa fa-sign-in"></i> Ingresar</button>
+        </form>
+        <div class="item">
+          <a href="/rpApp/views/user/register.html"><i class="fa fa-edit"></i> Registrarse</a>
+        </div>
+        <div class="item">
+          <a href="/rpApp/views/user/recover.html"><i class="fa fa-key"></i> Recuperar contraseña</a>
+        </div>
+      </div>
+    </div>
+
+    </body>
+    </html>
+

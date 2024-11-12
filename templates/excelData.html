@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Error</title>
+    <title>Excel Data</title>
       <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
 </head>
 <body>
-    <h1>Error</h1>
-    <p>{{ msg }}</p>
-    <a href="/">Go back</a> </body>
+    <h1>Processed Excel Data</h1>
+
+    {% for table in tables %}
+        {{ table|safe }}
+    {% endfor %}
+</body>
 </html>

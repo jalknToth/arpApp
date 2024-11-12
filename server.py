@@ -1,102 +1,69 @@
-# Importa las bibliotecas necesarias
-import flask as fk  # Framework web Flask
-import weather as wr  # Módulo personalizado para obtener datos del clima
-import waitress as wss  # Servidor WSGI de producción para Flask
-import mysql.connector as sql  # Conector para MySQL
-import datetime as dt  #fechas y horas
+import flask as fk 
+import os
+import pandas as pd
+from excelReader import process_excel
 
-
-# Creando una instancia de la aplicación Flask
+# Crea una instancia de la aplicación Flask
 app = fk.Flask(__name__)
+# Configura la carpeta para subir archivos
+app.config['UPLOAD_FOLDER'] = 'uploads'
+# Define las extensiones de archivo permitidas
+app.config['ALLOWED_EXTENSIONS'] = {'xlsx', 'xls'}
 
-# Conectando a la base de datos MySQL
-def getDBconnection():
-    conn = sql.connect(
-        host='localhost',  # Host de la base de datos
-        user='root',  # Usuario de la base de datos
-        password='',  # Contraseña del usuario
-        database='climapp'  # Nombre de la base de datos
-    )
-    return conn
+def allowed_file(filename):
+    # Comprueba si la extensión del archivo está permitida
+    # filename.rsplit('.', 1)[1].lower() obtiene la extensión en minúsculas
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-# Guardando los datos del clima en la base de datos
-def guardarDatos(ciudad, temperatura, descripcion):
-    conn = getDBconnection()  # Obteniendo la conexión a la base de datos
-    cur = conn.cursor()  # Cursor para ejecutar consultas
-    now = dt.datetime.now()  # Obteniendo la fecha y hora actual
-
-    try:
-        # Insertando los datos en la tabla 'clima'
-        cur.execute('INSERT INTO clima (ciudad, temperatura, descripcion, fecHora) VALUES (%s, %s, %s, %s)',(ciudad, temperatura, descripcion, now))
-        conn.commit()  # Confirmando los cambios
-    except sql.Error as err:  # Manejando errores de SQL
-        print(f"Error al guardar los datos: {err}")
-        conn.rollback()  # Revirtiendo los cambios en caso de error
-    finally:
-        cur.close()  # Cerrando el cursor
-        conn.close()  # Cerrando la conexión
-
-
-# Definiendo la ruta principal de la aplicación
-@app.route('/')
-@app.route('/index') # también respondiendo a /index
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return fk.render_template('index.html')  # Renderizando la plantilla 'index.html'
+    # Maneja las solicitudes GET y POST a la ruta raíz
+    if fk.request.method == 'POST': # Si la solicitud es POST (se ha enviado un formulario)
+        # Verifica si se ha subido un archivo
+        if 'file' not in fk.request.files:
+            # Redirige a la página de error si no hay archivo
+            return fk.redirect(fk.rurl_for('error', msg='No se ha subido ningún archivo')) # Redirige a la página de error si no se proporciona un archivo
+        file = fk.request.files['file'] # Obtiene el archivo subido
+        # Verifica si se ha seleccionado un archivo
+        if file.filename == '':
+            # Redirige a la página de error si no se ha seleccionado un archivo
+            return fk.redirect(fk.rurl_for('error', msg='No se ha seleccionado ningún archivo'))  # Redirige a la página de error si no se selecciona un archivo
+        # Verifica si el archivo es válido
+        if file and allowed_file(file.filename):  # Si se ha subido un archivo y su extensión es permitida
+            filename = file.filename  # Obtiene el nombre del archivo
+            # Crea la ruta completa para guardar el archivo
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)  # Crea la ruta donde se guardará el archivo
+            file.save(filepath)  # Guarda el archivo subido  # Guarda el archivo en el servidor
+
+            try:
+                # Procesa el archivo Excel
+                df = process_excel(filepath) # Procesa el archivo Excel usando la función process_excel (definida en excelReader.py)
+                # Renderiza la plantilla 'excelData.html' con los datos del archivo Excel
+                return fk.render_template('excelData.html', tables=[df.to_html(classes='data')], titles=df.columns.values)  # Renderiza la plantilla y muestra los datos
+
+            except Exception as e: # Captura cualquier excepción durante el procesamiento
+                # Redirige a la página de error si ocurre un error durante el procesamiento
+                return fk.redirect(fk.rurl_for('error', msg=f'Error al procesar el archivo: {str(e)}')) # Redirige a la página de error si hay un error al procesar el archivo
+        else: # Si el tipo de archivo no es válido
+            # Redirige a la página de error si el tipo de archivo no es válido
+            return fk.redirect(fk.rurl_for('error', msg='Tipo de archivo no válido')) # Redirige a la página de error si el tipo de archivo no es válido
+
+    return fk.render_template('index.html') # Renderiza la plantilla index.html si la solicitud es GET
 
 
-# Definiendo la ruta para obtener el clima
-@app.route('/weather')
-def get_weather():
-    city = fk.request.args.get('city')  # Obteniendo el parámetro 'city'
+@app.route('/uploads/<filename>') # Define la ruta para servir archivos estáticos desde la carpeta 'uploads'
+def uploaded_file(filename):
+    # Sirve el archivo subido desde la carpeta 'uploads'
+    return fk.send_from_directory(app.config['UPLOAD_FOLDER'], filename)  # Envía el archivo solicitado al usuario
 
-    # Por defecto a "Medellin"
-    if city is None or not city.strip():
-        city = "Medellin"
 
-    # Llama a la función 'revisarClima' del módulo 'weather' para obtener los datos del clima
-    weather_data = wr.revisarClima(city)
+@app.route('/error/<msg>')  # Define la ruta para mostrar mensajes de error
+def error(msg):
+    # Renderiza la plantilla 'error.html' con el mensaje de error
+    return fk.render_template('error.html', msg=msg)  # Renderiza la plantilla de error con el mensaje correspondiente
 
-    # Manejo de errores:
-    if weather_data is None:
-        return fk.render_template('error.html', error_message="Error al obtener los datos del clima."), 500  # Error 500: Internal Server Error
 
-    if weather_data['cod'] != 200: # Si la API del clima devuelve un código distinto a 200 (OK)
-        return fk.render_template('error.html', ciudad=city), 404  # Error 404: Not Found
-
-    # Guardando los datos del clima en la base de datos
-    guardarDatos(weather_data["name"], weather_data['main']['temp'], weather_data["weather"][0]["description"])
-
-    # Renderizando la plantilla 'weather.html' con los datos del clima
-    return fk.render_template(
-        "weather.html",
-        title=weather_data["name"],
-        status=weather_data["weather"][0]["description"].capitalize(),
-        temp=f"{weather_data['main']['temp']:.1f}", # Formatea la temperatura a un decimal
-        feels_like=f"{weather_data['main']['feels_like']:.1f}" # Formatea la sensación térmica a un decimal
-    )
-
-# Función para crear la tabla 'clima' en la base de datos si no existe
-def creaTable():
-    conn = getDBconnection()
-    cur = conn.cursor()
-
-    try:
-        # Crea la tabla 'clima'
-        cur.execute('''CREATE TABLE IF NOT EXISTS clima (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        ciudad VARCHAR(255) NOT NULL,
-                        temperatura FLOAT,
-                        descripcion VARCHAR(255),
-                        fecHora DATETIME
-                    )''')
-        conn.commit()
-    except sql.Error as err:
-        print(f"Error al crear la tabla: {err}")
-    finally:
-        cur.close()
-        conn.close()
-
-# Punto de entrada principal del script
-if __name__ == "__main__":
-    creaTable()  # Creando la tabla al iniciar la aplicación
-    wss.serve(app, host="0.0.0.0", port=8000)  # Iniciando el servidor Waitress en el puerto 8000 (para producción)
+if __name__ == '__main__':
+    # Ejecuta la aplicación en modo debug
+    app.run(debug=True) # Inicia la aplicación Flask en modo debug
