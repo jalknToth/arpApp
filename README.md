@@ -18,10 +18,14 @@
 arpApp/
 ├── static/             # Static files (CSS)
 │   └── style.css
-├── templates/          # HTML templates
 ├── uploads/            # Upload directory
+├── templates/          # HTML templates
 │   ├── error.html      # Error page
 │   ├── index.html      # Main page
+│   ├── register.html   # Main page
+│   ├── recover.html    # Main page
+│   ├── login.html      # Main page
+│   ├── dashboard.html  # Main page
 │   └── excelData.html  # Page to display Excel data
 ├── .gitignore          # Files ignored by Git
 ├── .git                # Git directory 
@@ -30,7 +34,7 @@ arpApp/
 ├── requirements.txt    # Project dependencies
 ├── structure.txt       # Structure file (this README)
 ├── server.py           # Main Flask server script
-└── excelReader.py     # Module to process Excel files
+└── excelReader.py      # Module to process Excel files
 ```
 
 ## Instalación

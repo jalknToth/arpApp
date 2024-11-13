@@ -1,69 +1,119 @@
-import flask as fk 
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+import mysql.connector
 import os
 import pandas as pd
-from excelReader import process_excel
+from werkzeug.utils import secure_filename
+import excelReader  # Assuming you have a module for Excel processing
 
-# Crea una instancia de la aplicación Flask
-app = fk.Flask(__name__)
-# Configura la carpeta para subir archivos
-app.config['UPLOAD_FOLDER'] = 'uploads'
-# Define las extensiones de archivo permitidas
-app.config['ALLOWED_EXTENSIONS'] = {'xlsx', 'xls'}
+app = Flask(__name__)
+app.secret_key = os.urandom(24)  # Secret key for flash messages
+
+# Load database credentials from .env file
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_DATABASE = os.getenv("DB_DATABASE")
+
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'xlsx', 'xls'}  # Allowed file extensions
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1000 * 1000 # 16MB upload limit
+
 
 def allowed_file(filename):
-    # Comprueba si la extensión del archivo está permitida
-    # filename.rsplit('.', 1)[1].lower() obtiene la extensión en minúsculas
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def get_db_connection():
+    try:
+        cnx = mysql.connector.connect(host=DB_HOST, user=DB_USER, password=DB_PASSWORD, database=DB_DATABASE)
+        return cnx
+    except mysql.connector.Error as err:
+        print(f"Database connection error: {err}")
+        return None
+
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Maneja las solicitudes GET y POST a la ruta raíz
-    if fk.request.method == 'POST': # Si la solicitud es POST (se ha enviado un formulario)
-        # Verifica si se ha subido un archivo
-        if 'file' not in fk.request.files:
-            # Redirige a la página de error si no hay archivo
-            return fk.redirect(fk.rurl_for('error', msg='No se ha subido ningún archivo')) # Redirige a la página de error si no se proporciona un archivo
-        file = fk.request.files['file'] # Obtiene el archivo subido
-        # Verifica si se ha seleccionado un archivo
+    return render_template("index.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # ... (Handle registration logic, insert user data into the database) ...
+        return redirect(url_for("login")) # Redirect to login after registration
+    return render_template("register.html")
+
+
+@app.route("/recover", methods=["GET", "POST"])
+def recover():
+    # ... Password recovery logic ...
+    return render_template("recover.html")
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password'] 
+        cnx = get_db_connection()
+        if cnx:
+            cursor = cnx.cursor()
+            query = "SELECT * FROM users WHERE username = %s AND password = %s"  # Vulnerable to SQL injection! Fix below
+            cursor.execute(query, (username, password)) # Use parameterized query
+            user = cursor.fetchone()
+            cursor.close()
+            cnx.close()
+            if user:
+                # Successful login
+                return redirect(url_for('dashboard'))  # Redirect to dashboard or protected area
+            else:
+                flash("Invalid username or password. Please try again.", "danger") #Flash message (requires secret key set in app config)
+    return render_template('login.html')
+
+
+
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
+     if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part', 'danger')
+            return redirect(request.url)
+        file = request.files['file']
         if file.filename == '':
-            # Redirige a la página de error si no se ha seleccionado un archivo
-            return fk.redirect(fk.rurl_for('error', msg='No se ha seleccionado ningún archivo'))  # Redirige a la página de error si no se selecciona un archivo
-        # Verifica si el archivo es válido
-        if file and allowed_file(file.filename):  # Si se ha subido un archivo y su extensión es permitida
-            filename = file.filename  # Obtiene el nombre del archivo
-            # Crea la ruta completa para guardar el archivo
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)  # Crea la ruta donde se guardará el archivo
-            file.save(filepath)  # Guarda el archivo subido  # Guarda el archivo en el servidor
-
+            flash('No selected file', 'danger')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename) # Sanitize filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename)) # Save file
+            # Process the Excel file (using pandas or your excelReader module)
             try:
-                # Procesa el archivo Excel
-                df = process_excel(filepath) # Procesa el archivo Excel usando la función process_excel (definida en excelReader.py)
-                # Renderiza la plantilla 'excelData.html' con los datos del archivo Excel
-                return fk.render_template('excelData.html', tables=[df.to_html(classes='data')], titles=df.columns.values)  # Renderiza la plantilla y muestra los datos
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                df = pd.read_excel(filepath)  # Read the Excel file using pandas
+                data = df.to_html() # Convert DataFrame to HTML
+                # ... further processing (e.g., store data in DB) ...
+                return render_template('excelData.html', table_data=data, filename=filename)
 
-            except Exception as e: # Captura cualquier excepción durante el procesamiento
-                # Redirige a la página de error si ocurre un error durante el procesamiento
-                return fk.redirect(fk.rurl_for('error', msg=f'Error al procesar el archivo: {str(e)}')) # Redirige a la página de error si hay un error al procesar el archivo
-        else: # Si el tipo de archivo no es válido
-            # Redirige a la página de error si el tipo de archivo no es válido
-            return fk.redirect(fk.rurl_for('error', msg='Tipo de archivo no válido')) # Redirige a la página de error si el tipo de archivo no es válido
-
-    return fk.render_template('index.html') # Renderiza la plantilla index.html si la solicitud es GET
+            except Exception as e: # Catch potential errors during file processing
+                flash(f'Error processing file: {e}', 'danger')
 
 
-@app.route('/uploads/<filename>') # Define la ruta para servir archivos estáticos desde la carpeta 'uploads'
+
+     return render_template("dashboard.html") # Render dashboard on GET request
+
+
+
+
+
+
+@app.route('/uploads/<filename>') # Make uploaded file available for download
 def uploaded_file(filename):
-    # Sirve el archivo subido desde la carpeta 'uploads'
-    return fk.send_from_directory(app.config['UPLOAD_FOLDER'], filename)  # Envía el archivo solicitado al usuario
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-@app.route('/error/<msg>')  # Define la ruta para mostrar mensajes de error
-def error(msg):
-    # Renderiza la plantilla 'error.html' con el mensaje de error
-    return fk.render_template('error.html', msg=msg)  # Renderiza la plantilla de error con el mensaje correspondiente
-
-
-if __name__ == '__main__':
-    # Ejecuta la aplicación en modo debug
-    app.run(debug=True) # Inicia la aplicación Flask en modo debug
+if __name__ == "__main__":
+    app.run(debug=True)

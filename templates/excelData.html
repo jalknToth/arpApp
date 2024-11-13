@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Excel Data</title>
-      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+<title>Excel Data</title>
 </head>
 <body>
-    <h1>Processed Excel Data</h1>
+<h1>{{ filename }}</h1>
 
-    {% for table in tables %}
-        {{ table|safe }}
-    {% endfor %}
+{{ table_data | safe }}  <!-- Display the HTML table -->
+
+<a href="{{ url_for('uploaded_file', filename=filename) }}">Download Excel File</a>
+
+
 </body>
 </html>
