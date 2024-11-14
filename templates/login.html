@@ -4,39 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="shortcut icon" href="/public/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="item">
-    <a href="./home.html"><i class="fa fa-eye"></i> test </a>
-  </div>
+  {% extends "base.html" %}
+  {% block title %}Login{% endblock %}
+  {% block content %}
+    <!--
+    <div class="test">
+        <a href="./home.html"><i class="fa fa-eye"></i>test</a>
+    </div>
+    -->
+    <div class="item">
+      <a href="./login.html"><i class="logo" id="logo"></i></a>
+    </div>
 
-  <div class="item">
-    <a href="./login.html"><i class="logo" id="logo"></i></a>
-  </div>
+    <div class="container" id="container">
+      
+      <div class="form" method="POST" action="">
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for category, message in messages %}
-      <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+        <div class="input-group">
+          <i class=""></i>
+          <input type="text" id="usuario" name="usuario" placeholder="Usuario" required >
+        </div>
 
-<form method="post">
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username" required><br><br>
-
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required><br><br>
-
-    <input type="submit" value="Submit">
-</form>
-<a href="{{ url_for('recover') }}">Forgot Password?</a>
-
+        <div class="input-group">
+          <i class=""></i>
+          <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+        </div>
+          
+        <div class="input-group" method="post">
+          <button type="submit" value="Submit">
+              <i class="fa fa-sign-in"></i>
+              <a href="{{ url_for('register') }}">
+                  Ingresar
+              </a>
+          </button>
+        </div>
+        <div class="input-group" method="post">
+          <button type="submit">
+              <i class="fa fa-key"></i>
+              <a href="{{ url_for('recover') }}">
+                Recuperar contraseña
+              </a>
+          </button>
+          
+      </div>
+    </div>
+  {% endblock %}
 </body>
 </html>

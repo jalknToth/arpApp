@@ -4,12 +4,22 @@
 <title>Excel Data</title>
 </head>
 <body>
-<h1>{{ filename }}</h1>
-
-{{ table_data | safe }}  <!-- Display the HTML table -->
-
-<a href="{{ url_for('uploaded_file', filename=filename) }}">Download Excel File</a>
-
-
+    {% extends "base.html" %}
+    {% block title %}Upload Excel Data{% endblock %}
+    
+    {% block content %}
+      <h1>Upload Excel File</h1>
+      <form method="post" enctype="multipart/form-data">  <!--- Important for file upload -->
+          <input type="file" name="file">
+          <input type="submit" value="Upload">
+      </form>
+    
+        {% if filename %}  <!--- Display the uploaded data (you'll need to adapt this) --->
+            <h2>Uploaded Data ({{ filename }})</h2>
+    
+            <!-- Display the data here. You might want to use a table -->
+    
+        {% endif %}
+    {% endblock %}
 </body>
 </html>

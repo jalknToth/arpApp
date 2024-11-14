@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    {% extends "base.html" %}
+    {% block title %}Home{% endblock %}
+    {% block content %}
     <!--
     <div class="test">
         <a href="./home.html"><i class="fa fa-eye"></i>test</a>
@@ -39,5 +42,8 @@
             </button>
         </div>
     </div>
+
+    {% endblock %}
+    
 </body>
 </html>

@@ -4,25 +4,31 @@
 <title>Dashboard</title>
 </head>
 <body>
-<h1>Dashboard</h1>
-
-
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for category, message in messages %}
-      <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-
-<!-- File Upload Form -->
-<form method="post" enctype="multipart/form-data">
-    <input type="file" name="file">
-    <input type="submit" value="Upload">
-</form>
-
-
+  {% extends "base.html" %}
+  {% block title %}Dashboard{% endblock %}
+  {% block content %}
+    <h1>Audit Dashboard</h1>
+  
+      {% if audit_data %}
+          <table>
+              <thead>
+                  <tr>
+                      <!-- Add your table headers based on the audit_data columns -->
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for row in audit_data %}
+                      <tr>
+                       <!-- Add your table cells – loop through row data  -->
+                          <td>{{ row.column1 }}</td>  
+                         
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      {% else %}
+          <p>No audit data available.</p>
+      {% endif %}
+  {% endblock %}
 </body>
 </html>
