@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-  {% extends "base.html" %}
-  {% block title %}Login{% endblock %}
-  {% block content %}
-    <!--
+    
     <div class="test">
-        <a href="./home.html"><i class="fa fa-eye"></i>test</a>
+        <a href=""><i class="fa fa-eye"></i>test</a>
     </div>
-    -->
+    
     <div class="item">
-      <a href="./login.html"><i class="logo" id="logo"></i></a>
+      <a href="../index.html"><i class="logo" id="logo"></i></a>
     </div>
 
     <div class="container" id="container">
@@ -37,7 +34,7 @@
         <div class="input-group" method="post">
           <button type="submit" value="Submit">
               <i class="fa fa-sign-in"></i>
-              <a href="{{ url_for('register') }}">
+              <a href="">
                   Ingresar
               </a>
           </button>
@@ -45,13 +42,12 @@
         <div class="input-group" method="post">
           <button type="submit">
               <i class="fa fa-key"></i>
-              <a href="{{ url_for('recover') }}">
+              <a href="">
                 Recuperar contraseña
               </a>
           </button>
           
       </div>
     </div>
-  {% endblock %}
 </body>
 </html>
