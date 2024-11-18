@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registrarse</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="./static/style.css">
   </head>
 <body>
     
     <div class="item">
-        <a href="{{ url_for('/') }}"><i class="logo" id="logo"></i></a>
+        <a href="./index.html"><i class="logo" id="logo"></i></a>
     </div>
  
     <div class="container" id="container">
@@ -47,7 +47,7 @@
             <div method="post">
                 <button type="submit">
                     <i class="fa fa-edit"></i>
-                    <a href="{{ url_for('register') }}">
+                    <a href="./index.html">
                         Registrarse
                     </a>
                 </button>
