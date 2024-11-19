@@ -35,6 +35,12 @@ body {
   margin-left: 2px;
   color: #0b00a2;
 
+.material-icons{
+  color: #0b00a2;
+
+}
+
+
 }
 .logoIN::before {
   content: "";
