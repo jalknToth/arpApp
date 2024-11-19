@@ -48,7 +48,8 @@ body {
   max-width: 300px;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
-  margin: 1rem auto; 
+  margin: 1rem auto;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .form {
