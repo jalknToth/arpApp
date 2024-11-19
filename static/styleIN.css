@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-/*general*/
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-/*Fonts family and size*/
+
 body {
-  background-color: #f5f9fa;
+  background-color: rgb(255, 255, 255);
   font-family: 'Open Sans', sans-serif;
   min-height: 100vh;
   display: flex;
@@ -15,13 +15,12 @@ body {
   padding: 20px;
 }
 
-/*logo inside*/
 .logoIN {
   cursor: pointer;
   margin-bottom: 20px;
   width: 40px;
   height: 40px;
-  background-color: #3f51b5;
+  background-color: #0b00a2;
   position: relative;
   display: inline-flex;
 }
@@ -30,16 +29,16 @@ body {
   display: block;
   width: 40px;
   height: 40px;
-  background-color: #f5f9fa;
+  background-color: rgb(255, 255, 255);
   border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-/*topnav*/
+
 .topnav i{
-  color: #3f51b5;
+  color: #0b00a2;
   font-size: 25px;
 }
 .topnav-container{
@@ -51,32 +50,34 @@ body {
 }
 .topnav a {
   display: inline-block;
-  color: #f2f2f2;
   text-align: center;
   padding: 5px 5px;
   text-decoration: none;
   margin-left: 2px;
 }
 
-/* Float four columns side by side */
+.titles {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  margin: 20px;
+  color: #0b00a2;
+}
+
 .column {
   float: left;
-  width: 25%;
+  width: 100%;
   padding: 0 10px;
   margin-bottom: 20px;
 }
 
-/* Remove extra left and right margins, due to padding */
 .row {margin: 0 -5px;}
 
-/* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* Responsive columns */
 @media screen and (max-width: 600px) {
   .column {
     width: 100%;
@@ -85,32 +86,25 @@ body {
   }
 }
 
-/* Style the counter cards */
 .card {
   display: flex;
+  stroke-width: 3px;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 35px;
+  padding: 25px;
   text-align: center;
-  color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   position: relative;
-}
-
-.card h5 {
-  position: absolute; 
-  color: #3f51b5;
-  top: 0;
-  left: 25px;
-  padding: 10px; 
-  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  border: 1px solid #c8c8c8;
+  
 }
 
 .card a{
-  font-size: 1.5rem;
-  color: black;
+  font-size: 1rem;
+  color: #0b00a2;
   display: flex;
   left: 0;
   width: 100%;
