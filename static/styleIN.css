@@ -58,11 +58,6 @@ body {
   margin-left: 2px;
 }
 
-/* Change color on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
 /* Float four columns side by side */
 .column {
   float: left;
@@ -110,6 +105,7 @@ body {
   top: 0;
   left: 25px;
   padding: 10px; 
+  font-family: 'Open Sans', sans-serif;
 }
 
 .card a{
@@ -120,6 +116,15 @@ body {
   width: 100%;
   text-decoration: none;
   justify-content: space-between;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.card h2{
+  font-family: 'Open Sans', sans-serif;
+  right: 0;
+  top: 0;
+  position: absolute;
+
 }
 
 @media (max-width: 480px) {
