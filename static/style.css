@@ -23,12 +23,12 @@ body {
   margin: 1rem auto; 
   width: 70px;
   height: 70px;
-  background-color: #3f51b5;
+  background-color: #0b00a2;
   position: relative;
 }
 
 .logo:hover {
-  background-color: #0056b3;
+  background-color: #1d10d3;
 }
 
 .logo::before {
@@ -62,7 +62,7 @@ body {
 button {
   width: 100%;
   padding: 1rem;
-  background-color: #3f51b5;
+  background-color: #0b00a2;
   color: white;
   border: none;
   border-radius: 4px;
@@ -83,9 +83,9 @@ input, button {
 }
 
 .test a {
-  color: #0056b3;
+
+  color: #0b00a2;
   display: block;
-  margin-top: 1rem;
   text-align: center;
   font-size: 0.8rem;
   font-family: 'Open Sans', sans-serif;
