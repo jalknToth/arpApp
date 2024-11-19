@@ -13,6 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  
 }
 
 .logoIN {
@@ -23,13 +24,14 @@ body {
   background-color: #0b00a2;
   position: relative;
   display: inline-flex;
+  text-decoration:none
 }
 
 .nomPag{
   margin-left: 100px;
   display: inline-block;
   padding: 20px 55px;
-  text-decoration: none;
+  text-decoration:none;
   margin-left: 2px;
   color: #0b00a2;
 
