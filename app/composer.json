@@ -1,0 +1,15 @@
+{
+    "name": "m2/app",
+    "autoload": {
+        "psr-4": {
+            "M2\\App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jalknThoth",
+            "email": "alejalkndro@gmail.com"
+        }
+    ],
+    "require": {}
+}
