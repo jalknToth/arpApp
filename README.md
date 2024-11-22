@@ -4,25 +4,21 @@ underconstr.
 https://jalkntoth.github.io/arpApp/
 
 
-arpa/
-├── composer.json
-├── public/
-│   ├── index.php
-│   ├── static/
-│   │   └── style.css
-├── src/
-│   ├── Controllers/
-│   │   ├── AuthController.php
-│   │   └── HomeController.php
-│   ├── Models/
-│   │   └── User.php
-│   ├── Views/
-│   │   ├── auth/
-│   │   │   ├── login.php
-│   │   │   ├── register.php
-│   │   │   └── recover.php
-│   │   └── home/
-│   │       └── index.php  // corresponds to dashboard.html
-│   └── config.php // Database connection, etc.
-└── vendor/
-    └── ... // Composer dependencies
+app/
+├── public/             
+│   └── style.css
+├── views/              # PHP templates
+│   ├── login.php       # Login page
+│   ├── register.php    # Login page
+│   ├── dashboard.php   # Dashboard page
+│   └── error.php       # Error page 
+├── src/               
+│   └── Auth.php        # Class for handling authentication (log:in/out)      
+├── .gitignore           
+├── .git                 
+├── .env                # Database credentials, etc.
+├── README.md            
+├── composer.json       
+├── composer.lock       
+└── index.php           # Main entry point - handles routing          
+
