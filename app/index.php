@@ -61,23 +61,6 @@ switch ($requestUri) {
         }
         break;
 
-
-    case '/logout':
-        $auth->logout();
-        header("Location: /login"); 
-        exit;
-        break;
-
-    case '/dashboard':
-        if ($auth->isLoggedIn()) {
-            $user = $auth->getCurrentUser();
-            include __DIR__ . '/views/dashboard.php'; 
-        } else {
-            header("Location: /login");
-            exit;
-        }
-        break;
-
     default:
         header("Location: /login"); 
         exit;

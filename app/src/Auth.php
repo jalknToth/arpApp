@@ -101,34 +101,7 @@ class Auth {
         }
     }
 
-    public function logout() {
-        $_SESSION = array();
-        if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time()-3600, '/');
-        }
-        session_destroy();
-    }
-
     public function isLoggedIn() {
         return isset($_SESSION['user_id']);
-    }
-
-    public function getCurrentUser() {
-        if (!isset($_SESSION['user_id'])) {
-            return null;
-        }
-
-        try {
-            $stmt = $this->pdo->prepare("
-                SELECT id, nombre, apellido, cedula, correo, cargo, created_at 
-                FROM users 
-                WHERE id = :userId
-            ");
-            $stmt->execute(['userId' => $_SESSION['user_id']]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            error_log("Error obteniendo el usuario: " . $e->getMessage());
-            return null;
-        }
     }
 }
