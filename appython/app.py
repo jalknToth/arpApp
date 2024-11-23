@@ -1,13 +1,12 @@
-# app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from database.db import get_db_connection, create_tables
-from mysql.connector import Error
-from dotenv import load_dotenv
+import mysql.connector as sql
+import dotenv as dt
 import os
 
-load_dotenv()
+dt.load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'default-secret-key')
@@ -53,7 +52,7 @@ def login():
             flash('Invalid credentials')
             return redirect(url_for('login'))
             
-        except Error as e:
+        except sql.Error as e:
             flash('Login error')
             return redirect(url_for('login'))
         finally:

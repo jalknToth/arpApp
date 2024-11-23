@@ -46,7 +46,7 @@ Los beneficios clave de utilizar este RPA son:
 ![Captura de pantalla 5](screenshots/analisis.png)
 
 ## Estructura Python
-
+```
 app/
 ├── static/             
 │   ├── style.css
@@ -61,7 +61,7 @@ app/
 ├── .env               
 ├── .gitignore        
 └── app.py            
-
+```
 ## Estructura PHP
 
 ```
