@@ -1,7 +1,9 @@
+# app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+from database.db import get_db_connection, create_tables
+from mysql.connector import Error
 from dotenv import load_dotenv
 import os
 
@@ -9,10 +11,9 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'default-secret-key')
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+# Create tables on startup
+create_tables()
 
 # Login required decorator
 def login_required(f):
@@ -22,18 +23,6 @@ def login_required(f):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
-
-# User model
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(50), nullable=False)
-    apellido = db.Column(db.String(50), nullable=False)
-    cedula = db.Column(db.String(20), unique=True, nullable=False)
-    correo = db.Column(db.String(100), unique=True, nullable=False)
-    cargo = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
-    creado = db.Column(db.DateTime, server_default=db.func.current_timestamp())
 
 # Routes
 @app.route('/')
@@ -46,15 +35,30 @@ def login():
         correo = request.form.get('usuario')
         password = request.form.get('contrasena')
         
-        user = User.query.filter_by(correo=correo).first()
+        connection = get_db_connection()
+        if connection is None:
+            flash('Database connection error')
+            return redirect(url_for('login'))
         
-        if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id
-            session['user_email'] = user.correo
-            return redirect(url_for('dashboard'))
-        
-        flash('Invalid credentials')
-        return redirect(url_for('login'))
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM users WHERE correo = %s", (correo,))
+            user = cursor.fetchone()
+            
+            if user and check_password_hash(user['password'], password):
+                session['user_id'] = user['id']
+                session['user_email'] = user['correo']
+                return redirect(url_for('dashboard'))
+            
+            flash('Invalid credentials')
+            return redirect(url_for('login'))
+            
+        except Error as e:
+            flash('Login error')
+            return redirect(url_for('login'))
+        finally:
+            cursor.close()
+            connection.close()
     
     return render_template('login.html')
 
@@ -73,41 +77,62 @@ def register():
             flash('Passwords do not match')
             return redirect(url_for('register'))
         
-        if User.query.filter_by(correo=correo).first():
-            flash('Email already registered')
+        connection = get_db_connection()
+        if connection is None:
+            flash('Database connection error')
             return redirect(url_for('register'))
-        
-        if User.query.filter_by(cedula=cedula).first():
-            flash('Cedula already registered')
-            return redirect(url_for('register'))
-        
-        hashed_password = generate_password_hash(password)
-        new_user = User(
-            nombre=nombre,
-            apellido=apellido,
-            cedula=cedula,
-            correo=correo,
-            cargo=cargo,
-            password=hashed_password
-        )
         
         try:
-            db.session.add(new_user)
-            db.session.commit()
+            cursor = connection.cursor(dictionary=True)
+            
+            # Check if email exists
+            cursor.execute("SELECT id FROM users WHERE correo = %s", (correo,))
+            if cursor.fetchone():
+                flash('Email already registered')
+                return redirect(url_for('register'))
+            
+            # Check if cedula exists
+            cursor.execute("SELECT id FROM users WHERE cedula = %s", (cedula,))
+            if cursor.fetchone():
+                flash('Cedula already registered')
+                return redirect(url_for('register'))
+            
+            # Insert new user
+            hashed_password = generate_password_hash(password)
+            cursor.execute("""
+                INSERT INTO users (nombre, apellido, cedula, correo, cargo, password)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (nombre, apellido, cedula, correo, cargo, hashed_password))
+            
+            connection.commit()
             flash('Registration successful')
             return redirect(url_for('login'))
-        except Exception as e:
-            db.session.rollback()
+            
+        except Error as e:
+            connection.rollback()
             flash('Registration failed')
             return redirect(url_for('register'))
+        finally:
+            cursor.close()
+            connection.close()
     
     return render_template('register.html')
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    user = User.query.get(session['user_id'])
-    return render_template('dashboard.html', user=user)
+    connection = get_db_connection()
+    if connection is None:
+        return redirect(url_for('login'))
+    
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users WHERE id = %s", (session['user_id'],))
+        user = cursor.fetchone()
+        return render_template('dashboard.html', user=user)
+    finally:
+        cursor.close()
+        connection.close()
 
 @app.route('/logout')
 def logout():
@@ -115,6 +140,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)

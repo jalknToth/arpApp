@@ -48,21 +48,19 @@ Los beneficios clave de utilizar este RPA son:
 ## Estructura Python
 
 app/
-├── static/             # CSS and other static files
+├── static/             
 │   ├── style.css
 │   └── styleIN.css
-├── templates/          # HTML templates
+├── templates/          
 │   ├── login.html      
 │   ├── register.html   
 │   ├── dashboard.html  
 │   └── error.html      
-├── models/            
-│   └── user.py        
-├── config.py           # Configuration settings
-├── .env                # Environment variables
+├── database/          
+│   └── db.py          
+├── .env               
 ├── .gitignore        
-├── requirements.txt        
-└── app.py              # Main application file
+└── app.py            
 
 ## Estructura PHP
 
