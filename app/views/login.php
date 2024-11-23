@@ -13,7 +13,7 @@
         <div style="color: red;"><?php echo $error_message; ?></div>
     <?php endif; ?>
 
-    <div class="test">
+    <div class="test" method="POST" action="/login">
         <a href="/dashboard"><i class="fa fa-eye"></i>demo</a>
     </div>
 

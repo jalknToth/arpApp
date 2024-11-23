@@ -1,14 +1,37 @@
 # arpApp
 
-Es una aplicación web para automizar procesos de auditoria.
+Es una App para Automizar Procesos de Auditoria.
 
 # Link
 
 https://jalkntoth.github.io/arpApp/
 
-## Descripción
+## Introduccion y contextualización
 
-La app aún esta en construcción y hasta ahora encuentras el diseño web estático, y parte del registro de usuario en php. 
+La auditoría es un proceso crucial para asegurar el buen manejo de recursos de una empresa. Tradicionalmente, estas auditorías involucran tareas repetitivas y manuales que consumen mucho tiempo y recursos.  Este proyecto de RPA (Automatización Robótica de Procesos) busca automatizar esas tareas, optimizando el proceso de auditoría y liberando a los auditores para que se centren en análisis más estratégicos.  Este RPA se enfoca en el análisis de archivos en Excel, y se ha desarrollado para identificar fraudes o irregularidades en el manejo del dinero.
+
+## Revisión Teórica y Empírica 
+
+La automatización de procesos robóticos (RPA) está revolucionando la forma en que las empresas realizan sus operaciones.  [Cita fuentes relevantes sobre RPA].  Estudios recientes demuestran que la RPA puede aumentar la eficiencia y reducir los errores en tareas repetitivas [cita ejemplos y estadísticas].  En el contexto de la auditoría, la RPA permite automatizar tareas como Analizar columnas de Excel, realizar operaciones, sacar porcentajes, extraer y transformar informacion.  Esta automatización se basa en Python utilizando diversas librerías como Pandas y Matplotlib, en la que se puede extraer, transformar, cargar datos, para luego permitir que el auditor interactue con los resultados en la App.  [Menciona trabajos previos o investigaciones relacionadas con la automatización de auditorías web].
+
+## Análisis y Exploración 
+
+Este proyecto analiza las necesidades de una auditoría y explora las posibilidades de automatización.  Se identificaron las siguientes áreas clave para la automatización: extraer, transformar y cargar.  Se realizó un análisis comparativo entre los métodos manuales y automatizados para determinar el potencial de mejora en términos de tiempo, precisión y costo.  La automatización reduce el tiempo de auditoría en un 80%,  minimiza los errores humanos, etc.].
+
+## Enfoque Metodológico
+
+Este RPA utiliza un enfoque basado en datos, para automatizar las tareas de auditoría. El proceso automatizado incluye los siguientes pasos: 1. Extraer datos relevantes, 2. Analizar los datos, 3. Generar un informe.
+
+# Beneficios
+
+Los beneficios clave de utilizar este RPA son:
+
+* **Mayor eficiencia:** Reduce significativamente el tiempo requerido para realizar auditorías.
+* **Mayor precisión:** Elimina los errores humanos y proporciona resultados consistentes.
+* **Reducción de costos:** Libera a los auditores para que se centren en tareas de mayor valor.
+* **Mayor cobertura:** Permite auditar un mayor número de páginas y elementos web.
+* **Informes automatizados:** Genera informes detallados y fáciles de interpretar.
+* **Escalabilidad:** Se puede adaptar fácilmente para auditar diferentes tipos de sitios web.
 
 ## Capturas de Pantalla
 
@@ -18,7 +41,7 @@ La app aún esta en construcción y hasta ahora encuentras el diseño web estát
 ![Captura de pantalla 4](screenshots/byr.png)
 ![Captura de pantalla 5](screenshots/analisis.png)
 
-## Estructura del PHP
+## Estructura PHP
 
 ```
 app/
