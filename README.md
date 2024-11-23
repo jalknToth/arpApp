@@ -16,7 +16,7 @@ La automatización de procesos robóticos (RPA) está revolucionando la forma en
 
 ## Análisis y Exploración 
 
-Este proyecto analiza las necesidades de una auditoría y explora las posibilidades de automatización.  Se identificaron las siguientes áreas clave para la automatización: extraer, transformar y cargar.  Se realizó un análisis comparativo entre los métodos manuales y automatizados para determinar el potencial de mejora en términos de tiempo, precisión y costo.  La automatización reduce el tiempo de auditoría en un 80%,  minimiza los errores humanos, etc.].
+Este proyecto analiza las necesidades de una auditoría y explora las posibilidades de automatización.  Se identificaron las siguientes áreas clave para la automatización: extraer, transformar y cargar.  Se realizó un análisis comparativo entre los métodos manuales y automatizados para determinar el potencial de mejora en términos de tiempo, precisión y costo.  La automatización reduce el tiempo de auditoría en un gran porcentaje y minimiza los errores humanos.
 
 ## Enfoque Metodológico
 
