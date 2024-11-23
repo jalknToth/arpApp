@@ -26,7 +26,7 @@
 
         <form method="POST" action="/login">
           <div class="input-group">
-            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required >
+            <input type="text" id="usuario" name="usuario" placeholder="Correo" required >
           </div>
 
           <div class="input-group">
