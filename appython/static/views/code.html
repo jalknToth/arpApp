@@ -1,0 +1,180 @@
+<!--index.html-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>R P A</title>
+      <link rel="shortcut icon" href="/public/img/favicon.png" type="image/x-icon">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/public/css/style.css">
+</head>
+
+<body>
+  <div>
+    <a href="index.html"><i class="logo" id="logo"></i></a>
+  </div>
+
+    <?php if (isset($error)): ?>
+        <p><?php echo $error; ?></p>  
+    <?php endif; ?>
+
+    <div class="container" id="container">
+      <div class="form">
+        <form method="post">
+          <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="email" id="correo" name="correo" placeholder="Usuario" required autofocus >
+          </div>
+          <div class="input-group">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+          </div>
+          <button type="submit"><i class="fa fa-sign-in"></i> Ingresar</button>
+        </form>
+        <div class="item">
+          <a href="/views/register.html"><i class="fa fa-edit"></i> Registrarse</a>
+        </div>
+        <div class="item">
+          <a href="/views/recover.html"><i class="fa fa-key"></i> Recuperar contraseña</a>
+        </div>
+      </div>
+    </div>
+    </body>
+    </html>
+
+<!--recover.html-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Recuperar contrasena</title>
+      <link rel="shortcut icon" href="../public/img/favicon.png" type="image/x-icon">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="../public/css/style.css">
+</head>
+
+<body>
+  <div>
+    <a href="../index.html"><i class="logo" id="logo"></i></a>
+  </div>
+
+  <?php if (isset($error)): ?>
+        <p><?php echo $error; ?></p>  
+  <?php endif; ?>
+
+<div class="container" id="container">
+  <div class="form">
+    <form method="post">
+      <div class="input-group">
+        <i class="fa fa-envelope"></i>
+        <input type="email" id="correo" name="correo" placeholder="Correo" required>
+      </div>
+      <div class="input-group">
+        <i class="fa fa-lock"></i>
+        <input type="submit" value="Recuperar contraseña">
+      </div>
+    </form>
+    <div class="item">
+      <a href="../index.html"><i class="fa fa-edit"></i>Ingresar</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<!--register.html-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Registrarse</title>
+      <link rel="shortcut icon" href="../public/img/favicon.png" type="image/x-icon">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="../public/css/style.css">
+</head>
+
+<body>
+  <div>
+    <a href="../index.html"><i class="logo" id="logo"></i></a>
+  </div>
+  
+  <?php if (isset($error)): ?>
+        <p><?php echo $error; ?></p>  
+  <?php endif; ?>
+
+<div class="container" id="container">
+  <div class="form">
+    <form method="post">
+      <div class="input-group">
+        <i class="fa fa-address-card"></i>
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre" required autofocus >
+      </div>
+      <div class="input-group">
+        <i class="fa fa-address-card"></i>
+        <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+      </div>
+      <div class="input-group">
+        <i class="fa fa-id-card"></i>
+        <input type="text" id="cedula" name="cedula" placeholder="Cédula" required>
+      </div>
+      <div class="input-group">
+        <i class="fa fa-envelope"></i>
+        <input type="email" id="correo" name="correo" placeholder="Correo" required>
+      </div>
+      <div class="input-group">
+        <i class="fa fa-institution"></i>
+        <input type="text" id="cargo" name="cargo" placeholder="Cargo" required>
+      </div>
+      <div class="input-group">
+        <i class="fa fa-lock"></i>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+      </div>
+      <div class="input-group">
+        <i class="fa fa-lock"></i>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Repite tu contraseña" required>
+      </div>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i>Registrarse</button>
+    </form>
+    <div class="item">
+      <a href="../index.html"><i class="fa fa-edit"></i>Ingresar</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+A[Login/Inicio] --> B[Dashboard Principal]
+    
+    B --> C[Módulo Personas]
+    B --> D[Módulo Auditoría]
+    B --> E[Módulo Alertas]
+    B --> F[Módulo Reportes]
+    B --> G[Configuración]
+
+    C --> C1[Registro Personal]
+    C --> C2[Declaración Bienes]
+    C --> C3[Declaración Rentas]
+    C --> C4[Conflictos Interés]
+    
+    D --> D1[Línea Transparencia]
+    D --> D2[Accesos SAP]
+    D --> D3[Success Factor]
+    D --> D4[Informes Auditoría]
+    
+    E --> E1[Monitor Alertas]
+    E --> E2[Investigación]
+    E --> E3[Gestión Casos]
+    
+    F --> F1[Reportes Generales]
+    F --> F2[Estadísticas]
+    F --> F3[Cuadros Mando]
+    
+    G --> G1[Configuración Sistema]
+    G --> G2[Reglas Negocio]
+    G --> G3[Parametrización]

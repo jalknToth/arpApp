@@ -1,0 +1,15 @@
+read_csv()      >>> Lee un archivo CSV
+read_excel()    >>> Lee un archivo Excel
+head()          >>> Muestra las primeras filas
+tail()          >>> Muestra las últimas filas
+info()          >>> Muestra información del DataFrame
+describe()      >>> Genera estadísticas descriptivas
+groupby()       >>> Agrupa datos
+merge()         >>> Combina DataFrames
+concat()        >>> Concatena DataFrames
+sort_values()   >>> Ordena el DataFrame
+dropna()        >>> Elimina filas con valores nulos
+fillna()        >>> Rellena valores nulos
+iloc[]          >>> Selecciona datos por posición
+loc[]           >>> Selecciona datos por etiqueta
+apply()         >>> Aplica una función a filas/columnas
