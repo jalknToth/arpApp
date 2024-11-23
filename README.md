@@ -45,6 +45,25 @@ Los beneficios clave de utilizar este RPA son:
 ![Captura de pantalla 4](screenshots/byr.png)
 ![Captura de pantalla 5](screenshots/analisis.png)
 
+## Estructura Python
+
+app/
+├── static/             # CSS and other static files
+│   ├── style.css
+│   └── styleIN.css
+├── templates/          # HTML templates
+│   ├── login.html      
+│   ├── register.html   
+│   ├── dashboard.html  
+│   └── error.html      
+├── models/            
+│   └── user.py        
+├── config.py           # Configuration settings
+├── .env                # Environment variables
+├── .gitignore        
+├── requirements.txt        
+└── app.py              # Main application file
+
 ## Estructura PHP
 
 ```
