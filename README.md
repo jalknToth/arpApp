@@ -1,6 +1,6 @@
 # arpApp
 
-Es un App para Automizar Procesos de Auditoria RPA.
+Es un App para Automizar Procesos de Auditoria (RPA).
 
 # Link
 
