@@ -12,7 +12,7 @@ La auditoría es un proceso crucial para asegurar el buen manejo de recursos de 
 
 ## Revisión Teórica y Empírica 
 
-La automatización de procesos robóticos (RPA) está revolucionando la forma en que las empresas realizan sus operaciones.  [Cita fuentes relevantes sobre RPA].  Estudios recientes demuestran que la RPA puede aumentar la eficiencia y reducir los errores en tareas repetitivas [cita ejemplos y estadísticas].  En el contexto de la auditoría, la RPA permite automatizar tareas como Analizar columnas de Excel, realizar operaciones, sacar porcentajes, extraer y transformar informacion.  Esta automatización se basa en Python utilizando diversas librerías como Pandas y Matplotlib, en la que se puede extraer, transformar, cargar datos, para luego permitir que el auditor interactue con los resultados en la App.  [Menciona trabajos previos o investigaciones relacionadas con la automatización de auditorías web].
+La automatización de procesos robóticos (RPA) está revolucionando la forma en que las empresas realizan sus operaciones.  Estudios recientes demuestran que la RPA puede aumentar la eficiencia y reducir los errores en tareas repetitivas.  En el contexto de la auditoría, la RPA permite automatizar tareas como Analizar datos de Excel, realizar operaciones, sacar porcentajes, extraer y transformar informacion.  Esta automatización se basa en Python utilizando diversas librerías como Pandas y Matplotlib, en la que se puede extraer, transformar, cargar datos, para luego permitir que el auditor interactue con los resultados en la App.
 
 ## Análisis y Exploración 
 
@@ -20,7 +20,11 @@ Este proyecto analiza las necesidades de una auditoría y explora las posibilida
 
 ## Enfoque Metodológico
 
-Este RPA utiliza un enfoque basado en datos, para automatizar las tareas de auditoría. El proceso automatizado incluye los siguientes pasos: 1. Extraer datos relevantes, 2. Analizar los datos, 3. Generar un informe.
+Este RPA utiliza un enfoque basado en datos, para automatizar las tareas de auditoría. El proceso automatizado incluye los siguientes pasos:
+
+1. Extraer datos relevantes.
+2. Analizar los datos.
+3. Generar un informe.
 
 # Beneficios
 
