@@ -18,6 +18,7 @@ body {
   padding: 1rem;
 }
 
+/*
 .logo {
   cursor: pointer;
   margin: 1rem auto; 
@@ -41,6 +42,39 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+*/
+
+.logo {
+  cursor: pointer;
+  margin: 1rem auto;
+  width: 70px;
+  height: 70px;
+  background-color: #0b00a2;
+  position: relative;
+  overflow: hidden; 
+  
+  
+}
+
+.logo:hover {
+  background-color: #1d10d3;
+}
+
+.logo::before {
+  content: "";
+  width: 80px;
+  height: 90px;
+  position: absolute;
+  border-radius: 50%;
+  top: 25%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  background-image: linear-gradient(to right, 
+      #f5f9fa 3px, transparent 1px,
+      transparent 1px, #f5f9fa 1px,
+      #f5f9fa 3px, transparent 1px);
+  background-size: 5px 100%; 
 }
 
 .container {

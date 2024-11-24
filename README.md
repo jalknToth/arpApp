@@ -8,9 +8,9 @@ https://jalkntoth.github.io/arpApp/
 
 ## Introduccion y contextualización
 
-La auditoría es un proceso crucial para asegurar el buen manejo de recursos de una empresa. Tradicionalmente, estas auditorías involucran tareas repetitivas y manuales que consumen mucho tiempo y recursos.  Este proyecto de RPA (Automatización Robótica de Procesos) busca automatizar esas tareas, optimizando el proceso de auditoría y liberando a los auditores para que se centren en análisis más estratégicos.  Este RPA se enfoca en el análisis de archivos en Excel, y se ha desarrollado para identificar fraudes o irregularidades en el manejo del dinero.
+La auditoría es un proceso crucial para asegurar el buen manejo de recursos de una empresa. Tradicionalmente, estas auditorías involucran tareas repetitivas y manuales que consumen mucho tiempo y recursos.  Este proyecto de RPA (Automatización Robótica de Procesos) busca automatizar esas tareas, optimizando el proceso de auditoría y liberando a los auditores para que se centren en análisis más estratégicos.  Este RPA se enfoca en el análisis de archivos en Excel, y se ha desarrollado para identificar fraudes o irregularidades en el manejo de los recursos.
 
-## Revisión Teórica y Empírica 
+## Revisión Teórica y Empírica  
 
 La automatización de procesos robóticos (RPA) está revolucionando la forma en que las empresas realizan sus operaciones.  Estudios recientes demuestran que la RPA puede aumentar la eficiencia y reducir los errores en tareas repetitivas.  En el contexto de la auditoría, la RPA permite automatizar tareas como Analizar datos de Excel, realizar operaciones, sacar porcentajes, extraer y transformar informacion.  Esta automatización se basa en Python utilizando diversas librerías como Pandas y Matplotlib, en la que se puede extraer, transformar, cargar datos, para luego permitir que el auditor interactue con los resultados en la App.
 

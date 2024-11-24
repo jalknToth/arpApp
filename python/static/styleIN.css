@@ -18,6 +18,33 @@ body {
 
 .logoIN {
   cursor: pointer;
+  margin: 1rem auto;
+  width: 40px;
+  height: 40px;
+  background-color: #0b00a2;
+  position: relative;
+  display: inline-flex;
+  text-decoration:none
+}
+.logoIN::before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 30%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  background-image: linear-gradient(to right, 
+      #ffffff 2px, transparent 1.5px,
+      transparent 1.5px, #ffffff 1.5px,
+      #ffffff 2px, transparent 1.5px);
+  background-size: 4px 100%; 
+}
+
+/*
+.logoIN {
+  cursor: pointer;
   margin-bottom: 20px;
   width: 40px;
   height: 40px;
@@ -27,18 +54,6 @@ body {
   text-decoration:none
 }
 
-.nomPag{
-  margin-left: 100px;
-  padding: 20px 55px;
-  text-decoration:none;
-  margin-left: 2px;
-  color: #0b00a2;
-}
-
-.material-icons{
-  color: #0b00a2;
-
-}
 .logoIN::before {
   content: "";
   display: block;
@@ -50,6 +65,19 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+*/
+.nomPag{
+  margin-left: 100px;
+  padding: 20px 55px;
+  text-decoration:none;
+  margin-left: 2px;
+  color: #0b00a2;
+}
+
+.material-icons{
+  color: #0b00a2;
+
 }
 
 .topnav i{
