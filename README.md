@@ -42,7 +42,7 @@ Los beneficios clave de utilizar este RPA son:
 ![Captura de pantalla 1](screenshots/login.png)
 ![Captura de pantalla 2](screenshots/register.png)
 ![Captura de pantalla 3](screenshots/dashboard.png)
-![Captura de pantalla 4](screenshots/byr.png)
+![Captura de pantalla 4](screenshots/chat.png)
 ![Captura de pantalla 5](screenshots/analisis.png)
 
 ## Estructura Python
@@ -86,7 +86,7 @@ app/
 
 ## Instalación
 
-1. Clona el repositorio:
+1. 
 
 ```bash
 git https://github.com/jalknToth/arpApp.git
@@ -95,7 +95,7 @@ git https://github.com/jalknToth/arpApp.git
 2. Instala las dependencias:
 
 ```bash
-composer install
+
 ```
 
 ## Ejecución
@@ -103,10 +103,10 @@ composer install
 1. Inicia la aplicación:
 
 ```bash
-php -S localhost:2006
+
 ```
 
-2. Abre tu navegador web y visita `http://localhost:2006`
+2. Abre tu navegador web y visita
 
 ## Contribuciones
 
