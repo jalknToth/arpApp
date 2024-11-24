@@ -41,12 +41,12 @@ Los beneficios clave de utilizar este RPA son:
 
 <table>
   <tr>
-    <td><img src="./static/screenshots/login.png" alt="Captura de pantalla 1" width="200px"></td>
-    <td><img src="./static/screenshots/register.png" alt="Captura de pantalla 2" width="200px"></td>
-    <td><img src="./static/screenshots/recover.png" alt="Captura de pantalla 3" width="200px"></td>
-    <td><img src="./static/screenshots/dashboard.png" alt="Captura de pantalla 4" width="200px"></td>
-    <td><img src="./static/screenshots/chat.png" alt="Captura de pantalla 5" width="200px"></td>
-    <td><img src="./static/screenshots/analisis.png" alt="Captura de pantalla 6" width="200px"></td>
+    <td><img src="./static/screenshots/login.png" alt="login" width="200px"></td>
+    <td><img src="./static/screenshots/register.png" alt="register" width="200px"></td>
+    <td><img src="./static/screenshots/recover.png" alt="recover" width="200px"></td>
+    <td><img src="./static/screenshots/dashboard.png" alt="dashboard" width="200px"></td>
+    <td><img src="./static/screenshots/chat.png" alt="chat" width="200px"></td>
+    <td><img src="./static/screenshots/analisis.png" alt="analisis" width="200px"></td>
   </tr>
 </table>
 
@@ -98,8 +98,30 @@ https://www.w3schools.com
 * Javascript Awesome Web Application Icons
 * Python Tutorial
 * PHP Tutorial
+* Python MySQL
+* MySQL Tutorial
 * Font Awesome Web Application Icons
 * W3Schools How To
+* Pandas Tutorial
+* Matplotlib Tutorial
+* Numpy Tutorial
+* Git tutorial
+* Data Science Tutorial
+* Machine Learning
+
+## Certificaciones
+
+<table>
+  <tr>
+    <td><img src="./static/screenshots/certify/AWScloudCertificate.png" alt="Captura de pantalla 1" width="200px"></td>
+    <td><img src="./static/screenshots/certify/pythonCertificate.png" alt="Captura de pantalla 2" width="200px"></td>
+    <td><img src="./static/screenshots/certify/sqlCertificate.png" alt="Captura de pantalla 3" width="200px"></td>
+    <td><img src="./static/screenshots/certify/pandasCertificate.png" alt="Captura de pantalla 4" width="200px"></td>
+    <td><img src="./static/screenshots/certify/htmlCertificate.png" alt="Captura de pantalla 5" width="200px"></td>
+    <td><img src="./static/screenshots/certify/CSScertificate.png" alt="Captura de pantalla 6" width="200px"></td>
+    <td><img src="./static/screenshots/certify/CSScertificate.png" alt="Captura de pantalla 6" width="200px"></td>
+  </tr>
+</table>
 
 ## Instalación
 

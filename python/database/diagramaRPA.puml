@@ -1,0 +1,132 @@
+@startuml
+!include <C4/C4_Context>
+
+hide stereotype
+
+entity Personas {
+    * IDpersona
+    * Correo
+    --
+    * Nombre
+    * Apellido
+    * Cedula
+    * Cargo
+    * contraseña
+    * compañia
+    * tipoUsuario
+    ...
+}
+
+entity BienesyRentas {
+    * Correo
+    * IDbien
+    --
+    * personaBienID
+    * Descripcion
+    * fechaAdquisicion
+    * Valor
+    * tipoBien
+    ...
+}
+
+entity DeclaracionConflictos {
+    * personaDeclaID
+    * IDdeclaracion
+    --
+    * Fecha
+    * Descripcion
+    * tipoConflicto
+    ...
+}
+
+entity LineaTransparencia {
+    * personaEntraID
+    * IDentrada
+    --
+    * FechaEntrada
+    * Descripcion
+    * tipoInformacion
+    * estado
+    ...
+}
+
+entity AccesosSAP {
+    * idSAP
+    * correoSAP
+    --
+    * usuario
+    * cargo
+    * fechaCreacion
+    * estado
+    ...
+}
+
+entity SuccessFactor {
+    * idFactor
+    * correoFactor
+    --
+    * departamento
+    * cargo
+    * fechaIngreso
+    ...
+}
+
+
+entity Alertas {
+    * IDalerta
+    * personaID
+    --
+    * TipoAlerta
+    * Descripcion
+    * Fecha
+    ...
+}
+
+
+entity InformesAuditoria {
+    * IDinforme
+    --
+    * FechaInforme
+    * Descripcion
+    * tipoInforme
+    * Descripcion
+    * estado
+    ...
+}
+
+
+entity InformacionEspecial {
+    * IDinfoEspecial
+    --
+    * Descripcion
+    * Fecha
+    * tipo
+    * nivel
+    ...
+}
+
+
+Personas ||--|{ BienesyRentas : posee
+Personas ||--|{ InformesAuditoria : tiene
+Personas ||--|{ InformacionEspecial : tiene
+Personas ||--|{ DeclaracionConflictos : declara
+Personas ||--|{ LineaTransparencia : ingresa
+Personas ||--|{ AccesosSAP : tiene
+Personas ||--|{ SuccessFactor : trabaja
+
+BienesyRentas }|..|{ Alertas : genera
+InformesAuditoria }|..|{ Alertas : genera
+DeclaracionConflictos }|..|{ Alertas : genera
+LineaTransparencia }|..|{ Alertas : genera
+AccesosSAP }|..|{ Alertas : genera
+SuccessFactor }|..|{ Alertas : genera
+InformacionEspecial }|..|{ Alertas : genera
+
+BienesyRentas::personaBienID --> Personas::IDpersona
+DeclaracionConflictos::personaDeclaID --> Personas::IDpersona
+LineaTransparencia::personaEntraID --> Personas::IDpersona
+AccesosSAP::personaSAPid --> Personas::IDpersona
+SuccessFactor::personaFactorID --> Personas::IDpersona
+Alertas::personaID --> Personas::IDpersona
+
+@enduml
