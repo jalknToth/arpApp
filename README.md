@@ -43,9 +43,10 @@ Los beneficios clave de utilizar este RPA son:
   <tr>
     <td><img src="screenshots/login.png" alt="Captura de pantalla 1" width="200px"></td>
     <td><img src="screenshots/register.png" alt="Captura de pantalla 2" width="200px"></td>
-    <td><img src="screenshots/dashboard.png" alt="Captura de pantalla 3" width="200px"></td>
-    <td><img src="screenshots/chat.png" alt="Captura de pantalla 4" width="200px"></td>
-    <td><img src="screenshots/analisis.png" alt="Captura de pantalla 5" width="200px"></td>
+    <td><img src="screenshots/recover.png" alt="Captura de pantalla 3" width="200px"></td>
+    <td><img src="screenshots/dashboard.png" alt="Captura de pantalla 4" width="200px"></td>
+    <td><img src="screenshots/chat.png" alt="Captura de pantalla 5" width="200px"></td>
+    <td><img src="screenshots/analisis.png" alt="Captura de pantalla 6" width="200px"></td>
   </tr>
 </table>
 

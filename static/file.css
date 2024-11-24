@@ -16,15 +16,57 @@ body {
   
 }
 
+/*
+.logo {
+  cursor: pointer;
+  margin: 1rem auto; 
+  width: 70px;
+  height: 70px;
+  background-color: #0b00a2;
+  position: relative;
+}
+
+.logo:hover {
+  background-color: #1d10d3;
+}
+
+.logo::before {
+  content: "";
+  width: 70px;
+  height: 70px;
+  background-color: #f5f9fa;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+*/
+
 .logoIN {
   cursor: pointer;
-  margin-bottom: 20px;
+  margin: 1rem auto;
   width: 40px;
   height: 40px;
   background-color: #0b00a2;
   position: relative;
   display: inline-flex;
   text-decoration:none
+}
+.logoIN::before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 30%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  background-image: linear-gradient(to right, 
+      #ffffff 2px, transparent 1.5px,
+      transparent 1.5px, #ffffff 1.5px,
+      #ffffff 2px, transparent 1.5px);
+  background-size: 4px 100%; 
 }
 
 .nomPag{
@@ -38,18 +80,6 @@ body {
 .material-icons{
   color: #0b00a2;
 
-}
-.logoIN::before {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .topnav i{

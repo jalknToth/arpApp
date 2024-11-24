@@ -52,8 +52,6 @@ body {
   background-color: #0b00a2;
   position: relative;
   overflow: hidden; 
-  
-  
 }
 
 .logo:hover {
@@ -70,9 +68,9 @@ body {
   left: 70%;
   transform: translate(-50%, -50%);
   background-image: linear-gradient(to right, 
-      #f5f9fa 3px, transparent 1px,
-      transparent 1px, #f5f9fa 1px,
-      #f5f9fa 3px, transparent 1px);
+      #ffffff 3px, transparent 1px,
+      transparent 1px, #ffffff 1px,
+      #ffffff 3px, transparent 1px);
   background-size: 5px 100%; 
 }
 
