@@ -39,7 +39,15 @@ Los beneficios clave de utilizar este RPA son:
 
 ## Capturas de Pantalla
 
-![Captura de pantalla 1](screenshots/login.png)![Captura de pantalla 2](screenshots/register.png)![Captura de pantalla 3](screenshots/dashboard.png)![Captura de pantalla 4](screenshots/chat.png)![Captura de pantalla 5](screenshots/analisis.png)
+<table>
+  <tr>
+    <td><img src="screenshots/login.png" alt="Captura de pantalla 1" width="200px"></td>
+    <td><img src="screenshots/register.png" alt="Captura de pantalla 2" width="200px"></td>
+    <td><img src="screenshots/dashboard.png" alt="Captura de pantalla 3" width="200px"></td>
+    <td><img src="screenshots/chat.png" alt="Captura de pantalla 4" width="200px"></td>
+    <td><img src="screenshots/analisis.png" alt="Captura de pantalla 5" width="200px"></td>
+  </tr>
+</table>
 
 ## Estructura Python
 ```
