@@ -89,6 +89,18 @@ app/
 └── index.php           
 ```
 
+## Referencias 
+
+https://www.w3schools.com
+
+* HTML Tutorial
+* CSS Tutorial
+* Javascript Awesome Web Application Icons
+* Python Tutorial
+* PHP Tutorial
+* Font Awesome Web Application Icons
+* W3Schools How To
+
 ## Instalación
 
 1. 
