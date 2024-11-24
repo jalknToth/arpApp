@@ -113,15 +113,16 @@ https://www.w3schools.com
 
 <table>
   <tr>
-    <td><img src="./static/screenshots/certify/AWScloudCertificate.png" alt="Captura de pantalla 1" width="200px"></td>
-    <td><img src="./static/screenshots/certify/pythonCertificate.png" alt="Captura de pantalla 2" width="200px"></td>
-    <td><img src="./static/screenshots/certify/sqlCertificate.png" alt="Captura de pantalla 3" width="200px"></td>
-    <td><img src="./static/screenshots/certify/pandasCertificate.png" alt="Captura de pantalla 4" width="200px"></td>
+    <td><img src="./static/screenshots/certify/AWScloudCertificate.png" alt="aws" width="200px"></td>
+    <td><img src="./static/screenshots/certify/pythonCertificate.png" alt="python" width="200px"></td>
+    <td><img src="./static/screenshots/certify/sqlCertificate.png" alt="sql" width="200px"></td>
+    <td><img src="./static/screenshots/certify/pandasCertificate.png" alt="pandas" width="200px"></td>
   </tr>
   <tr>
-    <td><img src="./static/screenshots/certify/htmlCertificate.png" alt="Captura de pantalla 5" width="200px"></td>
-    <td><img src="./static/screenshots/certify/CSScertificate.png" alt="Captura de pantalla 6" width="200px"></td>
-    <td><img src="./static/screenshots/certify/phpCertificate.png" alt="Captura de pantalla 6" width="200px"></td>
+    <td><img src="./static/screenshots/certify/htmlCertificate.png" alt="html" width="200px"></td>
+    <td><img src="./static/screenshots/certify/CSScertificate.png" alt="css" width="200px"></td>
+    <td><img src="./static/screenshots/certify/phpCertificate.png" alt="php" width="200px"></td>
+    <td><img src="./static/screenshots/certify/degree.png" alt="Degree" width="200px"></td>
   </tr>
 </table>
 
