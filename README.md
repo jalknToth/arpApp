@@ -95,7 +95,7 @@ https://www.w3schools.com
 
 * HTML Tutorial
 * CSS Tutorial
-* Javascript Awesome Web Application Icons
+* Awesome Web Application Icons
 * Python Tutorial
 * PHP Tutorial
 * Python MySQL
