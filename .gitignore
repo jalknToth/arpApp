@@ -1,6 +1,4 @@
 .env
 __pycache__
 *.pyc
-*.xls*
-*.xlsx
 config.txt
