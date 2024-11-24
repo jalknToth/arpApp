@@ -117,9 +117,11 @@ https://www.w3schools.com
     <td><img src="./static/screenshots/certify/pythonCertificate.png" alt="Captura de pantalla 2" width="200px"></td>
     <td><img src="./static/screenshots/certify/sqlCertificate.png" alt="Captura de pantalla 3" width="200px"></td>
     <td><img src="./static/screenshots/certify/pandasCertificate.png" alt="Captura de pantalla 4" width="200px"></td>
+  </tr>
+  <tr>
     <td><img src="./static/screenshots/certify/htmlCertificate.png" alt="Captura de pantalla 5" width="200px"></td>
     <td><img src="./static/screenshots/certify/CSScertificate.png" alt="Captura de pantalla 6" width="200px"></td>
-    <td><img src="./static/screenshots/certify/CSScertificate.png" alt="Captura de pantalla 6" width="200px"></td>
+    <td><img src="./static/screenshots/certify/phpCertificate.png" alt="Captura de pantalla 6" width="200px"></td>
   </tr>
 </table>
 
