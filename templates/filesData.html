@@ -45,9 +45,7 @@
             </div>
         </div>
 
-        <div class="chart-container">
-            <canvas id="salesChart"></canvas>
-        </div>
+        
 
         <table class="data-table">
             <thead>
@@ -86,41 +84,5 @@
             </tbody>
         </table>
     </div>
-
-    <script>
-        const ctx = document.getElementById('salesChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Enero', 'Febrero', 'Marzo', 'Abril'],
-                datasets: [{
-                    label: 'Ventas mensuales',
-                    data: [125430, 138650, 142800, 156240],
-                    borderColor: '#2563eb',
-                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Tendencia de venta mensual'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value.toLocaleString();
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
 </body>
 </html>
