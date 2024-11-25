@@ -144,11 +144,16 @@ git clone https://github.com/jalknToth/arpApp.git
 ```
 
 2. Crear un entorno virtual
+```bash
 python -m venv venv
+```
 
 3. Activar el entorno virtual
-source venv/bin/activate
+```bash
+python source venv/bin/activate
+```
 
+4. Instala las dependencias:
 ```bash
 pip install -r requirements.txt
 ```
