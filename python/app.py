@@ -82,34 +82,6 @@ def register():
 
     return fk.render_template('register.html')
 
-def userTable():
-    arpa = getDBconnection()
-    if arpa:
-        try:
-            cursor = arpa.cursor()
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS users (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    name VARCHAR(50) NOT NULL,
-                    surename VARCHAR(50) NOT NULL,
-                    ident VARCHAR(20) NOT NULL UNIQUE,
-                    email VARCHAR(100) NOT NULL UNIQUE,
-                    jobtitle VARCHAR(50) NOT NULL,
-                    password VARCHAR(255) NOT NULL,
-                    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-            arpa.commit()
-            print("Tabla 'users' creada (o ya existía)")
-        except sql.Error as err:
-            print("Error al crear la tabla 'users':", err)
-        finally:
-            if cursor:
-                cursor.close()
-            arpa.close()
-
-userTable()
-
 #login
 @app.route('/login', methods=['GET','POST'])
 def login():
