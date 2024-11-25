@@ -1,142 +1,146 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
-from werkzeug.security import generate_password_hash, check_password_hash
-from functools import wraps
-from database.db import get_db_connection, create_tables
+import flask as fk
+import waitress as wt
 import mysql.connector as sql
-import dotenv as dt
 import os
+import dotenv as dt
+import bcrypt as bc
 
+#App config.
 dt.load_dotenv()
 
-app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'default-secret-key')
+app = fk.Flask(
+    __name__, static_folder='./static',
+    template_folder='./templates')
 
-# Create tables on startup
-create_tables()
+app.secretKey = os.getenv("SECRET_KEY")
 
-# Login required decorator
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'user_id' not in session:
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return decorated_function
+#DB config.
+def getDBconnection():
+    try:
+        arpa = sql.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
+        return arpa
+    except sql.Error as err:
+        print('Error de conexión a la base de datos', err)
+        return None
 
-# Routes
-@app.route('/')
-def index():
-    return redirect(url_for('login'))
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        correo = request.form.get('usuario')
-        password = request.form.get('contrasena')
-        
-        connection = get_db_connection()
-        if connection is None:
-            flash('Database connection error')
-            return redirect(url_for('login'))
-        
-        try:
-            cursor = connection.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM users WHERE correo = %s", (correo,))
-            user = cursor.fetchone()
-            
-            if user and check_password_hash(user['password'], password):
-                session['user_id'] = user['id']
-                session['user_email'] = user['correo']
-                return redirect(url_for('dashboard'))
-            
-            flash('Invalid credentials')
-            return redirect(url_for('login'))
-            
-        except sql.Error as e:
-            flash('Login error')
-            return redirect(url_for('login'))
-        finally:
-            cursor.close()
-            connection.close()
-    
-    return render_template('login.html')
-
-@app.route('/register', methods=['GET', 'POST'])
+#Controllers config.
+#register
+@app.route('/register', methods=['GET','POST'])
 def register():
-    if request.method == 'POST':
-        nombre = request.form.get('nombre')
-        apellido = request.form.get('apellido')
-        cedula = request.form.get('cedula')
-        correo = request.form.get('correo')
-        cargo = request.form.get('cargo')
-        password = request.form.get('contrasena')
-        confirm_password = request.form.get('confTrasena')
+    if fk.request.method == 'POST':
+        name = fk.request.form.get('nombre')
+        surname = fk.request.form.get('apellido')
+        ident = fk.request.form.get('cedula')
+        email = fk.request.form.get('correo')
+        jobTitle = fk.request.form.get('cargo')
+        contrasena = fk.request.form.get('contrasena')
+        confTrasena = fk.request.form.get('confTrasena')
         
-        if password != confirm_password:
-            flash('Passwords do not match')
-            return redirect(url_for('register'))
+        if contrasena != confTrasena:
+            fk.session['error'] = "Las contraseñas no coinciden"
+            return fk.redirect(fk.url_for('register'))
         
-        connection = get_db_connection()
-        if connection is None:
-            flash('Database connection error')
-            return redirect(url_for('register'))
+        if not all([name, surname, ident, email, jobTitle, contrasena]):
+            fk.session['error'] = "Todos los campos son obligatorios"
+            return fk.redirect(fk.url_for('register'))
         
-        try:
-            cursor = connection.cursor(dictionary=True)
+        hashedPassword = bc.hashpw(contrasena.encode('utf-8'), bc.gensalt())
+        
+        arpa = getDBconnection()
+        if arpa:
+            try:
+                cursor = arpa.cursor()
+                sql = "INSERT INTO users (name, surname, ident, email, jobtitle, password) VALUES (%s, %s, %s, %s, %s, %s)"
+                val = (name, surname, ident, email, jobTitle, hashedPassword)
+                cursor.execute(sql, val)
+                arpa.commit()
+                print("Usuario registrado exitosamente")
+                return fk.redirect(fk.url_for('login', registered='success')) 
             
-            # Check if email exists
-            cursor.execute("SELECT id FROM users WHERE correo = %s", (correo,))
-            if cursor.fetchone():
-                flash('Email already registered')
-                return redirect(url_for('register'))
+            except sql.Error as err:
+                if err.errno == 1062: 
+                    
+                    fk.session['error'] = "Cedula o correo ya registrado"
+                else:
+                    fk.session['error'] = "Error de registro", err
+                return fk.redirect(fk.url_for('register'))
             
-            # Check if cedula exists
-            cursor.execute("SELECT id FROM users WHERE cedula = %s", (cedula,))
-            if cursor.fetchone():
-                flash('Cedula already registered')
-                return redirect(url_for('register'))
-            
-            # Insert new user
-            hashed_password = generate_password_hash(password)
-            cursor.execute("""
-                INSERT INTO users (nombre, apellido, cedula, correo, cargo, password)
-                VALUES (%s, %s, %s, %s, %s, %s)
-            """, (nombre, apellido, cedula, correo, cargo, hashed_password))
-            
-            connection.commit()
-            flash('Registration successful')
-            return redirect(url_for('login'))
-            
-        except Error as e:
-            connection.rollback()
-            flash('Registration failed')
-            return redirect(url_for('register'))
-        finally:
-            cursor.close()
-            connection.close()
+            finally:
+                cursor.close()
+                arpa.close()
+                
+        else:
+            fk.session['error'] = "Error de conexión a la base de datos"
+            return fk.redirect(fk.url_for('register'))
+
+    return fk.render_template('register.html')
+
+
+#login
+#auth = fk.Blueprint('auth', __name__)
+@app.route('/login', methods=['GET','POST'])
+def login():
     
-    return render_template('register.html')
+    if fk.request.method == 'POST':
+        email = fk.request.form.get('usuario')
+        contrasena = fk.request.form.get('contrasena')
+        arpa = getDBconnection()
+        if arpa:
+            try:
+                cursor = arpa.cursor(dictionary=True)
+                mysql = "SELECT * FROM users WHERE email = %s"
+                val = (email,)
+                user = cursor.fetchone()
+                
+                if user and bc.checkpw(contrasena.encode('utf-8'), user['password']):
+                    fk.session['user_id'] = user['id']
+                    fk.session['user_email'] = user['correo'] 
+                    return fk.redirect(fk.url_for('dashboard'))
+                
+                else:
+                    fk.session['error'] = "Credenciales incorrectas"
+                    return fk.redirect(fk.url_for('login'))  
+                
+            except mysql.connector.Error as err:
+                print(err)
+                fk.session['error'] = "Error during login"
+                return fk.redirect(fk.url_for('login'))
+            
+            finally:
+                cursor.close()
+                arpa.close()
+        else:
+             fk.session['error'] = "Error de conexión a la base de datos"
+             return fk.redirect(fk.url_for('login')) # redirect back to login with message
+
+
+    return fk.render_template('login.html')
+
+#app.register_blueprint(auth)
 
 @app.route('/dashboard')
-@login_required
 def dashboard():
-    connection = get_db_connection()
-    if connection is None:
-        return redirect(url_for('login'))
-    
-    try:
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE id = %s", (session['user_id'],))
-        user = cursor.fetchone()
-        return render_template('dashboard.html', user=user)
-    finally:
-        cursor.close()
-        connection.close()
+
+    if 'user_id' in fk.session: 
+      return fk.render_template('dashboard.html')
+    else:
+        return fk.redirect(fk.url_for('login'))
 
 @app.route('/logout')
 def logout():
-    session.clear()
-    return redirect(url_for('login'))
+    fk.session.pop('user_id', None)  
+    fk.session.pop('user_email', None)
+    return fk.redirect(fk.url_for('login'))
+
+@app.route('/')
+def index():
+    return fk.redirect(fk.url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    wt.serve(app, host='0.0.0.0', port=8080)
+

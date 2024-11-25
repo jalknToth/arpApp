@@ -151,13 +151,21 @@ git https://github.com/jalknToth/arpApp.git
 
 ## Ejecución
 
-1. Inicia la aplicación:
+1. Crear un entorno virtual
+python -m venv venv
 
+2. Activar el entorno virtual
+source venv/bin/activate
+
+3. Instalar las librerias necesarias
 ```bash
-
+pip install Flask waitress mysql-connector-python python-dotenv bcrypt 
 ```
-
-2. Abre tu navegador web y visita
+4. Ejecuta app.py
+```bash
+python app.py
+```
+5. Abre tu navegador web y visita
 
 ## Contribuciones
 
