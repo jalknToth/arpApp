@@ -3,3 +3,4 @@ __pycache__
 *.pyc
 config.txt
 structure.txt
+db.sql
