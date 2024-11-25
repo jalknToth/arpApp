@@ -54,9 +54,9 @@ Los beneficios clave de utilizar este RPA son:
 ```
 app/
 ├── static/             
-│   └── style.css
-│   └── styleIN.css
-│   └── chat.css
+│   ├── style.css
+│   ├── styleIN.css
+│   ├── chat.css
 │   └── file.css  
 ├── templates/
 │   ├── alerts.html
@@ -69,7 +69,7 @@ app/
 │   ├── dashboard.html   
 │   ├── reports.html
 │   ├── goods.html
-│   ├── readFiles.html        
+│   └── readFiles.html        
 ├── .gitignore           
 ├── .git                 
 ├── .env               
@@ -137,35 +137,31 @@ https://www.w3schools.com
 
 ## Instalación
 
-1. 
+1. Clona el repositorio:
 
 ```bash
-git https://github.com/jalknToth/arpApp.git
+git clone https://github.com/jalknToth/arpApp.git
 ```
 
-2. Instala las dependencias:
+2. Crear un entorno virtual
+python -m venv venv
+
+3. Activar el entorno virtual
+source venv/bin/activate
 
 ```bash
-
+pip install -r requirements.txt
 ```
 
 ## Ejecución
 
-1. Crear un entorno virtual
-python -m venv venv
+1. Inicia la aplicación:
 
-2. Activar el entorno virtual
-source venv/bin/activate
-
-3. Instalar las librerias necesarias
-```bash
-pip install Flask waitress mysql-connector-python python-dotenv bcrypt 
-```
-4. Ejecuta app.py
 ```bash
 python app.py
 ```
-5. Abre tu navegador web y visita
+
+2. Abre tu navegador web y visita `http://127.0.0.1:8080/`
 
 ## Contribuciones
 

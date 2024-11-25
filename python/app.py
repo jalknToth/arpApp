@@ -82,7 +82,6 @@ def register():
 
 
 #login
-#auth = fk.Blueprint('auth', __name__)
 @app.route('/login', methods=['GET','POST'])
 def login():
     
@@ -116,12 +115,10 @@ def login():
                 arpa.close()
         else:
              fk.session['error'] = "Error de conexión a la base de datos"
-             return fk.redirect(fk.url_for('login')) # redirect back to login with message
+             return fk.redirect(fk.url_for('login')) 
 
 
     return fk.render_template('login.html')
-
-#app.register_blueprint(auth)
 
 @app.route('/dashboard')
 def dashboard():
