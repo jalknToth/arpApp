@@ -54,18 +54,27 @@ Los beneficios clave de utilizar este RPA son:
 ```
 app/
 ├── static/             
-│   ├── style.css
+│   └── style.css
 │   └── styleIN.css
-├── templates/          
-│   ├── login.html      
-│   ├── register.html   
-│   ├── dashboard.html  
-│   └── error.html      
-├── database/          
-│   └── db.py          
+│   └── chat.css
+│   └── file.css  
+├── templates/
+│   ├── alerts.html
+│   ├── audits.html
+│   ├── chat.html
+│   ├── filesData.html
+│   ├── persons.html                  
+│   ├── login.html       
+│   ├── register.html    
+│   ├── dashboard.html   
+│   ├── reports.html
+│   ├── goods.html
+│   ├── readFiles.html        
+├── .gitignore           
+├── .git                 
 ├── .env               
-├── .gitignore        
-└── app.py            
+├── README.md                  
+└── app.py           
 ```
 ## Estructura PHP
 
