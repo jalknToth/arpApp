@@ -4,17 +4,20 @@ import mysql.connector as sql
 import os
 import dotenv as dt
 import bcrypt as bc
+import secrets as sc
 
 #app set
 dt.load_dotenv()
+app = fk.Flask(__name__, static_folder='./static', template_folder='./templates')
 
-app = fk.Flask(
-    __name__,
-    static_folder='./static',
-    template_folder='./templates'
-    )
+app.secret_key = os.getenv("SECRET_KEY")
+if "SECRET_KEY" not in os.environ:
+       secret_key = sc.token_hex(32)
+       os.environ["SECRET_KEY"] = secret_key
+       
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
-app.secretKey = os.getenv("SECRET_KEY")
+print(f"Your secret key is: {SECRET_KEY}")
 
 #DB set
 def getDBconnection():
@@ -58,8 +61,8 @@ def register():
             try:
                 cursor = arpa.cursor()
                 sql = "INSERT INTO users (name, surname, ident, email, jobtitle, password) VALUES (%s, %s, %s, %s, %s, %s)"
-                val = (name, surname, ident, email, jobTitle, hashedPassword)
-                cursor.execute(sql, val)
+                #val = (name, surname, ident, email, jobTitle, hashedPassword)
+                #cursor.execute(sql, val)
                 arpa.commit()
                 print("Usuario registrado exitosamente")
                 return fk.redirect(fk.url_for('login', registered='success')) 
@@ -83,9 +86,8 @@ def register():
     return fk.render_template('register.html')
 
 #login
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    
     if fk.request.method == 'POST':
         email = fk.request.form.get('usuario')
         contrasena = fk.request.form.get('contrasena')
@@ -95,29 +97,33 @@ def login():
                 cursor = arpa.cursor(dictionary=True)
                 mysql = "SELECT * FROM users WHERE email = %s"
                 val = (email,)
+                cursor.execute(mysql, val)
                 user = cursor.fetchone()
+
+                if user is None:  
+                    fk.session['error'] = "Credenciales incorrectas" 
+                    return fk.redirect(fk.url_for('login'))
                 
-                if user and bc.checkpw(contrasena.encode('utf-8'), user['password']):
+                password_from_db = bytes(user['password'])
+                if bc.checkpw(contrasena.encode('utf-8'), password_from_db):
                     fk.session['user_id'] = user['id']
-                    fk.session['user_email'] = user['correo'] 
+                    fk.session['user_email'] = user['email']  
                     return fk.redirect(fk.url_for('dashboard'))
-                
                 else:
-                    fk.session['error'] = "Credenciales incorrectas"
-                    return fk.redirect(fk.url_for('login'))  
-                
-            except mysql.connector.Error as err:
+                    fk.session['error'] = "Credenciales incorrectas" 
+                    return fk.redirect(fk.url_for('login'))
+
+            except Exception as err: 
                 print(err)
                 fk.session['error'] = "Error during login"
                 return fk.redirect(fk.url_for('login'))
-            
+
             finally:
                 cursor.close()
                 arpa.close()
         else:
-             fk.session['error'] = "Error de conexión a la base de datos"
-             return fk.redirect(fk.url_for('login')) 
-
+            fk.session['error'] = "Error de conexión a la base de datos"
+            return fk.redirect(fk.url_for('login'))
 
     return fk.render_template('login.html')
 
@@ -128,6 +134,48 @@ def dashboard():
       return fk.render_template('dashboard.html')
     else:
         return fk.redirect(fk.url_for('login'))
+
+@app.route('/persons')  
+def persons():
+    if 'user_id' in fk.session:
+       return fk.render_template('persons.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+
+@app.route('/audits')  
+def audits():
+    if 'user_id' in fk.session:
+       return fk.render_template('audits.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+   
+@app.route('/reports')  
+def reports():
+    if 'user_id' in fk.session:
+       return fk.render_template('reports.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+
+@app.route('/alerts')  
+def alerts():
+    if 'user_id' in fk.session:
+       return fk.render_template('alerts.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+
+@app.route('/readFiles')  
+def readFiles():
+    if 'user_id' in fk.session:
+       return fk.render_template('readFiles.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+   
+@app.route('/chat')  
+def chat():
+    if 'user_id' in fk.session:
+       return fk.render_template('chat.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
 
 @app.route('/logout')
 def logout():

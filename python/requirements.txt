@@ -4,3 +4,4 @@ waitress==2.1.2
 python-dotenv==1.0.0
 Flask-Login==0.6.2
 Werkzeug==2.3.7
+python -c 'import os; print(os.urandom(24))'
