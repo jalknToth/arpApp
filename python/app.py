@@ -135,45 +135,52 @@ def dashboard():
     else:
         return fk.redirect(fk.url_for('login'))
 
-@app.route('/persons')  
+@app.route('/persons')
 def persons():
     if 'user_id' in fk.session:
        return fk.render_template('persons.html')
     else:
        return fk.redirect(fk.url_for('login'))
 
-@app.route('/audits')  
+@app.route('/audits')
 def audits():
     if 'user_id' in fk.session:
        return fk.render_template('audits.html')
     else:
        return fk.redirect(fk.url_for('login'))
    
-@app.route('/reports')  
+@app.route('/reports')
 def reports():
     if 'user_id' in fk.session:
        return fk.render_template('reports.html')
     else:
        return fk.redirect(fk.url_for('login'))
 
-@app.route('/alerts')  
+@app.route('/alerts')
 def alerts():
     if 'user_id' in fk.session:
        return fk.render_template('alerts.html')
     else:
        return fk.redirect(fk.url_for('login'))
 
-@app.route('/readFiles')  
+@app.route('/readFiles')
 def readFiles():
     if 'user_id' in fk.session:
        return fk.render_template('readFiles.html')
     else:
        return fk.redirect(fk.url_for('login'))
    
-@app.route('/chat')  
+@app.route('/chat')
 def chat():
     if 'user_id' in fk.session:
        return fk.render_template('chat.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+   
+@app.route('/filesData')
+def chat():
+    if 'user_id' in fk.session:
+       return fk.render_template('filesData.html')
     else:
        return fk.redirect(fk.url_for('login'))
 

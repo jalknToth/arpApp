@@ -21,13 +21,13 @@
 
   <div class="topnav-container">
       <div>
-        <a href="./dashboard.html" class="logoIN">
+        <a href="{{ url_for('dashboard') }}" class="logoIN">
           <div class="nomPag">Auditorías</div>
         </a>
       </div>
       <div class="topnav">
-        <a href="./audits.html"><i class="fa fa-book"></i></a>
-        <a href="./dashboard.html"><i class="fa fa-bar-chart"></i></a>
+        <a href="{{ url_for('audits') }}"><i class="fa fa-book"></i></a>
+        <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
       </div>
     </div>
     
@@ -35,19 +35,19 @@
       <div class="row">
         <div class="column">
           <div class="card">
-            <a href="./goods.html"><i class="fa fa-building-o"><span class="titles">Bienes y Rentas</span></i>5</a>
+            <a href="{{ url_for('goods') }}"><i class="fa fa-building-o"><span class="titles">Bienes y Rentas</span></i>5</a>
           </div>
         </div>
       
         <div class="column">
           <div class="card">
-            <a href=""><i class="fa fa-barcode"><span class="titles">Accesos SAP</span></i>20</a>
+            <a href="{{ url_for('') }}"><i class="fa fa-barcode"><span class="titles">Accesos SAP</span></i>20</a>
           </div>
         </div>
 
         <div class="column">
           <div class="card">
-            <a href=""><i class="fa fa-calculator"><span class="titles">Success Factor</span></i>25</a>
+            <a href="{{ url_for('') }}"><i class="fa fa-calculator"><span class="titles">Success Factor</span></i>25</a>
           </div>
         </div>
     </div>

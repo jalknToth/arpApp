@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Chat</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='styleIN.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
@@ -26,8 +26,8 @@
           </a>
         </div>
         <div class="topnav">
-          <a href="./chat.html"><i class="fa fa-comment-o"></i></a>
-          <a href="./dashboard.html"><i class="fa fa-bar-chart"></i></a>
+          <a href="{{ url_for('chat') }}"><i class="fa fa-comment-o"></i></a>
+          <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
         </div>
     </div>
     <div class="input-container">

@@ -21,13 +21,13 @@
 
   <div class="topnav-container">
       <div>
-        <a href="./dashboard.html" class="logoIN">
+        <a href="{{ url_for('dashboard') }}" class="logoIN">
           <div class="nomPag">Informes</div>
         </a>
       </div>
       <div class="topnav">
-        <a href="./reports.html"><i class="fa fa-file-text-o"></i></a>
-        <a href="./dashboard.html"><i class="fa fa-bar-chart"></i></a>
+        <a href="{{ url_for('reports') }}"><i class="fa fa-file-text-o"></i></a>
+        <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
       </div>
     </div>
 

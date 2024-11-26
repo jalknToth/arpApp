@@ -21,13 +21,13 @@
 
       <div class="topnav-container">
           <div>
-              <a href="./dashboard.html" class="logoIN">
+              <a ref="{{ url_for('dashboard') }}" class="logoIN">
             <div class="nomPag">Análisis</div>
               </a>
             </div>
             <div class="topnav">
-              <a href="./readFiles.html"><i class="fa fa-upload"></i></a>
-              <a href="./dashboard.html"><i class="fa fa-bar-chart"></i></a>
+              <a href="{{ url_for('readFiles') }}"><i class="fa fa-upload"></i></a>
+              <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
             </div>
           </div>
     <div class="dashboard">
