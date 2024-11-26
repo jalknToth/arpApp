@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Alertas</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styleIN.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+<body>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+      {% for message in messages %}
+          <div class="error-message">{{ message }}</div>
+      {% endfor %}
+  {% endif %}
+{% endwith %}
+
+  <div class="topnav-container">
+      <div>
+        <a href="{{ url_for('dashboard') }}" class="logoIN">
+          <div class="nomPag" style="color: red;">Alertas</div>
+        </a>
+      </div>
+      <div class="topnav">
+        <a href="{{ url_for('alerts') }}"><i class="fa fa-exclamation-circle" style="color: red;"></i></a>
+        <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
+      </div>
+    </div>
+    
+    <div class="row">
+      
+        <div class="column">
+          <div class="search-container">
+            <i class="fa fa-search"></i>
+            <input type="text" id="entrada" name="search" onkeyup="myFunction()" title="Type in a name" placeholder="Buscar" autofocus>
+          </div>
+        </div>
+
+        <table id="tabla" style="color: red;">
+          <thead class="header">
+            <tr>
+              <th style="width:15%;">ID</th>
+              <th style="width:15%;">Descripcion</th>
+              <th style="width:15%;" class="hidden-on-medium">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>002</td>
+              <td>Informe gastos</td>
+              <td class="hidden-on-medium">En proceso</td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>Informe bancos</td>
+              <td class="hidden-on-medium">Enviado</td>
+            </tr>
+            <tr>
+              <td>004</td>
+              <td>Declaracion</td>
+              <td class="hidden-on-medium">Esperando</td>
+            </tr>
+            <tr>
+              <td>005</td>
+              <td>Bienes</td>
+              <td class="hidden-on-medium">Pausado</td>
+            </tr>
+            <tr>
+              <td>006</td>
+              <td>SAP</td>
+              <td class="hidden-on-medium">En proceso</td>
+            </tr>
+            <tr>
+              <td>007</td>
+              <td>Ingresos</td>
+              <td class="hidden-on-medium">Esperando</td>
+            </tr>
+            <tr>
+              <td>008</td>
+              <td>Inversiones</td>
+              <td class="hidden-on-medium">Recibido</td>
+            </tr>
+            <tr>
+              <td>009</td>
+              <td>Patrimonio</td>
+              <td class="hidden-on-medium">Enproceso</td>
+            </tr>
+          </tbody>
+    </div>
+    <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("entrada");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tabla");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+      }
+      </script>
+</body>
+</html>

@@ -3,5 +3,4 @@ mysql-connector-python==8.1.0
 waitress==2.1.2
 python-dotenv==1.0.0
 Flask-Login==0.6.2
-Werkzeug==2.3.7
-python -c 'import os; print(os.urandom(24))'
+bcrypt==4.0.1 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Personas</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styleIN.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+<body>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+      {% for message in messages %}
+          <div class="error-message">{{ message }}</div>
+      {% endfor %}
+  {% endif %}
+{% endwith %}
+
+  <div class="topnav-container">
+      <div>
+        <a href="./dashboard.html" class="logoIN">
+          <div class="nomPag">Personas</div>
+        </a>
+      </div>
+      <div class="topnav">
+        <a href="./persons.html"><i class="fa fa-id-card"></i></a>
+        <a href="./dashboard.html"><i class="fa fa-bar-chart"></i></a>
+        
+      </div>
+    </div>
+    
+    <div class="row">
+      
+        <div class="column">
+          <div class="search-container">
+            <i class="fa fa-search"></i>
+            <input type="text" id="entrada" name="search" onkeyup="myFunction()" title="Type in a name" placeholder="Buscar" autofocus>
+          </div>
+        </div>
+
+        <table id="tabla">
+          <thead class="header">
+            <tr>
+              <th style="width:50%;">Nombre</th>
+              <th style="width:15%;">Compañía</th>
+              <th style="width:15%;" class="hidden-on-medium">Cargo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ana Pérez</td>
+              <td>Summa</td>
+              <td class="hidden-on-medium">Gerente</td>
+            </tr>
+            <tr>
+              <td>Juan Gómez</td>
+              <td>Celsia</td>
+              <td class="hidden-on-medium">Gerente</td>
+            </tr>
+            <tr>
+              <td>Luisa Martínez</td>
+              <td>Summa</td>
+              <td class="hidden-on-medium">Tesorera</td>
+            </tr>
+            <tr>
+              <td>Carlos Rodríguez</td>
+              <td>Summa</td>
+              <td class="hidden-on-medium">Coordinador</td>
+            </tr>
+            <tr>
+              <td>Sofía Hernández</td>
+              <td>Celsia</td>
+              <td class="hidden-on-medium">Lider</td>
+            </tr>
+            <tr>
+              <td>Miguel López</td>
+              <td>Summa</td>
+              <td class="hidden-on-medium">Asociado</td>
+            </tr>
+            <tr>
+              <td>Isabel García</td>
+              <td>Summa</td>
+              <td class="hidden-on-medium">Finanzas</td>
+            </tr>
+            <tr>
+              <td>David Fernández</td>
+              <td>Summa</td>
+              <td class="hidden-on-medium">Lider</td>
+            </tr>
+          </tbody>
+    </div>
+    <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("entrada");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tabla");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+      }
+      </script>
+</body>
+</html>
