@@ -166,17 +166,10 @@ body {
 }
 
 .card {
-  display: flex;
-  stroke-width: 3px;
-  flex-direction: column;
-  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 25px;
-  text-align: center;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  position: relative;
-  width: 100%;
   border: 1px solid #c8c8c8;
   
 }
