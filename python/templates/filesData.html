@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Análisis</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='styleIN.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='file.css') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
@@ -19,18 +19,22 @@
   {% endif %}
 {% endwith %}
 
-      <div class="topnav-container">
-          <div>
-              <a ref="{{ url_for('dashboard') }}" class="logoIN">
-            <div class="nomPag">Análisis</div>
-              </a>
+    <div class="topnav-container">
+            
+            <div>
+                <a href="{{ url_for('dashboard') }}" class="logoIN">
+                <div class="nomPag">Análisis</div>
+                </a>
             </div>
+
             <div class="topnav">
-              <a href="{{ url_for('readFiles') }}"><i class="fa fa-upload"></i></a>
-              <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
+                <a href="{{ url_for('readFiles') }}"><i class="fa fa-upload"></i></a>
+                <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
             </div>
-          </div>
+        </div>
+
     <div class="dashboard">
+
         <div class="header">
             <h1>Análisis</h1>
         </div>
@@ -92,6 +96,8 @@
                 </tr>
             </tbody>
         </table>
+
     </div>
+
 </body>
 </html>

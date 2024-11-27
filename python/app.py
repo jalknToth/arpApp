@@ -10,14 +10,12 @@ import secrets as sc
 dt.load_dotenv()
 app = fk.Flask(__name__, static_folder='./static', template_folder='./templates')
 
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 app.secret_key = os.getenv("SECRET_KEY")
 if "SECRET_KEY" not in os.environ:
        secret_key = sc.token_hex(32)
        os.environ["SECRET_KEY"] = secret_key
-       
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-print(f"Your secret key is: {SECRET_KEY}")
 
 #DB set
 def getDBconnection():
@@ -178,9 +176,16 @@ def chat():
        return fk.redirect(fk.url_for('login'))
    
 @app.route('/filesData')
-def chat():
+def filesData():
     if 'user_id' in fk.session:
        return fk.render_template('filesData.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+   
+@app.route('/goods')
+def goods():
+    if 'user_id' in fk.session:
+       return fk.render_template('goods.html')
     else:
        return fk.redirect(fk.url_for('login'))
 
