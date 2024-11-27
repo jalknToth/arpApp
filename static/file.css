@@ -123,16 +123,9 @@ body {
   }
 }
 
-@media (max-width: 768px) { /* Adjust the breakpoint as needed */
+@media (max-width: 768px) { 
   .hidden-on-medium {
     display: none;
-  }
-
-  .header th:first-child { /* Nombre */
-    width: 60%; /* Adjust widths as needed for two-column layout */
-  }
-  .header th:nth-child(2) { /* Compañía */
-    width: 40%;
   }
 }
 .dashboard {
@@ -172,6 +165,7 @@ body {
     color: #111827;
 }
 .chart-container {
+    width: 100%;
     background: white;
     padding: 20px;
     border-radius: 8px;
