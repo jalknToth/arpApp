@@ -180,57 +180,42 @@ def filesData():
        return fk.render_template('filesData.html')
     else:
        return fk.redirect(fk.url_for('login'))
+        
 
 @app.route('/upload', methods=['GET', 'POST'])
 def uploadExcel():
     if fk.request.method == 'POST':
-        # Check if a file was uploaded
+        
         if 'file' not in fk.request.files:
-            return fk.render_template('uploadExcel.html', error='No file uploaded')
+            return fk.render_template('uploadExcel.html', error='Carga un archivo')
         
         file = fk.request.files['file']
         
-        # Check if filename is empty
         if file.filename == '':
-            return fk.render_template('uploadExcel.html', error='No selected file')
+            return fk.render_template('uploadExcel.html', error='Selecciona un archivo')
         
-        # Check if file is an Excel file
         if not file.filename.lower().endswith(('.xls', '.xlsx', '.xlsm', '.xlsb')):
-            return fk.render_template('uploadExcel.html', error='Invalid file type. Please upload an Excel file')
+            return fk.render_template('uploadExcel.html', error='Archivo invalido')
         
         try:
-            # Read the Excel file
             df = pd.read_excel(file)
-            
-            # Get column names
-            columns = df.columns.tolist()
-            
-            # Calculate column totals (only for numeric columns)
-            column_totals = {}
-            for col in columns:
-                if pd.api.types.is_numeric_dtype(df[col]):
-                    column_totals[col] = df[col].sum()
-                else:
-                    column_totals[col] = 'N/A'
-            
-            # Calculate some basic statistics
+
             stats = {
-                'Filas': len(df),
-                'Columnas': len(columns),
-                'Columnas con Números': sum(1 for col in columns if pd.api.types.is_numeric_dtype(df[col])),
-                'Columnas con Textos': sum(1 for col in columns if pd.api.types.is_string_dtype(df[col]))
+                'filename': file.filename,
+                'total_rows': len(df),
+                'total_value': df.iloc[:, -1].sum(),
+                'average_value': df.iloc[:, -1].mean(),
+                'null_values': df.isnull().sum().sum()
             }
             
             return fk.render_template('results.html', 
+                                   stats=stats, 
                                    data=df.to_dict('records'), 
-                                   columns=columns, 
-                                   totals=column_totals,
-                                   stats=stats)
+                                   columns=df.columns.tolist())
         
         except Exception as e:
-            return fk.render_template('uploadExcel.html', error=f'Error processing file: {str(e)}')
+            return fk.render_template('uploadExcel.html', error=str(e))
     
-    # GET request - show upload form
     return fk.render_template('uploadExcel.html')
    
 @app.route('/goods')

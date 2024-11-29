@@ -34,15 +34,15 @@
         {% if stats %}
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-title">Filas</div>
+                <div class="stat-title">Total páginas</div>
                 <div class="stat-value">{{ stats.total_rows }}</div>
             </div>
             <div class="stat-card">
-                <div class="stat-title">Valores</div>
+                <div class="stat-title">Total palabras</div>
                 <div class="stat-value">${{ "{:,.2f}".format(stats.total_value) }}</div>
             </div>
             <div class="stat-card">
-                <div class="stat-title">Valores Promedio</div>
+                <div class="stat-title"></div>
                 <div class="stat-value">${{ "{:,.2f}".format(stats.average_value) }}</div>
             </div>
             <div class="stat-card">
@@ -77,7 +77,29 @@
         </table>
         {% endif %}
     </div>
-    
+    <body>
+        <h1>PDF Análisis</h1>
+        
+        <h2>Estadísticas</h2>
+        <ul>
+            <li>Total Páginas: {{ analysis.total_pages }}</li>
+            <li>Total Pálabras: {{ analysis.total_words }}</li>
+            <li>Total Oraciones: {{ analysis.total_sentences }}</li>
+            <li>Promedio : {{ analysis.average_sentence_length|round(2) }} words</li>
+        </ul>
+        
+        <h2>Palabras destacadas</h2>
+        <ol>
+            {% for word, count in analysis.top_words %}
+            <li>{{ word }}: {{ count }} occurrences</li>
+            {% endfor %}
+        </ol>
+        
+        <h2>Summary</h2>
+        <p>{{ analysis.summary }}</p>
+        
+        <a href="{{ url_for('upload_pdf') }}">Upload Another PDF</a>
+    </body>
 
 </body>
 </html>
