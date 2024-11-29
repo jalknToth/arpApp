@@ -1,5 +1,6 @@
 import flask as fk
 import waitress as wt
+import werkzeug.utils as wk
 import mysql.connector as sql
 import os
 import dotenv as dt
@@ -8,6 +9,9 @@ import secrets as sc
 import google.cloud as ai
 import uuid
 import pandas as pd
+import io
+import PyPDF2
+import re
 
 #app set
 dt.load_dotenv()
@@ -36,6 +40,45 @@ def getDBconnection():
     except sql.Error as err:
         print('Error de conexión a la base de datos', err)
         return None
+
+#Read pdf
+def extract_text_from_pdf_stream(file_stream):
+    """Extract text from PDF file stream."""
+    try:
+        reader = PyPDF2.PdfReader(file_stream)
+        text = ''
+        for page in reader.pages:
+            text += page.extract_text() or ''
+        return text
+    except Exception as e:
+        fk.current_app.logger.error(f"PDF extraction error: {e}")
+        return ""
+
+def generate_summary(text, num_sentences=3):
+    """Generate simple extractive summary."""
+    # Split text into sentences using basic regex
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+    
+    # Remove empty or very short sentences
+    sentences = [s.strip() for s in sentences if len(s.strip()) > 10]
+    
+    if len(sentences) <= num_sentences:
+        return ' '.join(sentences)
+    
+    # Rank sentences by length
+    ranked_sentences = sorted(
+        [(sent, len(sent.split())) for sent in sentences], 
+        key=lambda x: x[1], 
+        reverse=True
+    )
+    
+    # Select top sentences while maintaining original order
+    summary_sentences = sorted(
+        ranked_sentences[:num_sentences], 
+        key=lambda x: sentences.index(x[0])
+    )
+    
+    return ' '.join([sent for sent, _ in summary_sentences])
 
 #Controllers set
 #register
@@ -217,6 +260,39 @@ def uploadExcel():
             return fk.render_template('uploadExcel.html', error=str(e))
     
     return fk.render_template('uploadExcel.html')
+
+@app.route('/uploadPDF', methods=['GET', 'POST'])
+def uploadPDF():
+    
+    if fk.request.method == 'GET':
+        return fk.render_template('uploadPDF.html')
+    
+    if 'file' not in fk.request.files:
+        return fk.render_template('uploadPDF.html', error='No file part')
+    
+    file = fk.request.files['file']
+    
+    if file.filename == '':
+        return fk.render_template('uploadPDF.html', error='No selected file')
+    
+    if not file.filename.lower().endswith('.pdf'):
+        return fk.render_template('uploadPDF.html', error='Invalid file type. Please upload a PDF.')
+    
+    try:
+        file_stream = io.BytesIO(file.read())
+
+        extracted_text = extract_text_from_pdf_stream(file_stream)
+        
+        if not extracted_text:
+            return fk.render_template('uploadPDF.html', error='Could not extract text from PDF')
+
+        summary = generate_summary(extracted_text)
+        
+        return fk.render_template('PDFresults.html', summary=summary)
+    
+    except Exception as e:
+        fk.current_app.logger.error(f"PDF processing error: {e}")
+        return fk.render_template('uploadPDF.html', error='An unexpected error occurred')
    
 @app.route('/goods')
 def goods():
