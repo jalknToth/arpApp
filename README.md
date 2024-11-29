@@ -63,12 +63,16 @@ app/
 │   ├── audits.html
 │   ├── chat.html
 │   ├── filesData.html
+│   ├── ExcelData.html
+│   ├── PDFdata.html
 │   ├── persons.html                  
 │   ├── login.html       
 │   ├── register.html    
 │   ├── dashboard.html   
 │   ├── reports.html
 │   ├── goods.html
+│   ├── readExcel.html
+│   ├── readPDF.html
 │   └── readFiles.html        
 ├── .gitignore           
 ├── .git                 
