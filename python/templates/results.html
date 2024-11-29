@@ -1,0 +1,81 @@
+<!-- templates/results.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Análisis</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='file.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+<body>
+    <div class="topnav-container">
+            
+        <div>
+            <a href="{{ url_for('dashboard') }}" class="logoIN">
+            <div class="nomPag">Análisis</div>
+            </a>
+        </div>
+
+        <div class="topnav">
+            <a href="{{ url_for('readFiles') }}"><i class="fa fa-upload"></i></a>
+            <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
+        </div>
+    </div>
+
+    <div class="dashboard">
+
+        <div class="header">
+            <h1>Análisis</h1>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                {% for key, value in stats.items() %}
+                <div class="stat-item">
+                    <p><strong>{{ key }}:</strong> {{ value }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="stat-card">
+                {% for col, total in totals.items() %}
+                <div class="stat-item">
+                    <th>{{ col }} Total</th>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="stat-card">
+                {% for col, total in totals.items() %}
+                <div class="stat-item">
+                    <td>{{ total }}</td>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+        <table class="data-table">
+            <thead>
+                <tr>
+                    {% for col in columns %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    {% for col in columns %}
+                    <td>{{ row[col] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    
+
+</body>
+</html>

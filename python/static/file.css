@@ -154,6 +154,19 @@ body {
     margin-bottom: 20px;
     
 }
+
+.stat-item {
+  margin-bottom: 5px; /* Add some space between items */
+  border-bottom: 1px solid #eee; /* Optional separator line */
+  padding-bottom: 5px;
+}
+
+/* Or display them inline within the card: */
+/* .stat-item {
+display: inline-block;
+margin-right: 10px;
+} 
+*/
 .stat-card {
     background: white;
     padding: 20px;

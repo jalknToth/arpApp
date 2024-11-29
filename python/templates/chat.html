@@ -9,32 +9,84 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/x-icon">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-<body>
+  <body>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-      {% for message in messages %}
-          <div class="error-message">{{ message }}</div>
-      {% endfor %}
-  {% endif %}
-{% endwith %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          {% for message in messages %}
+              <div class="error-message">{{ message }}</div>
+          {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-    <div class="topnav-container">
-        <div>
-          <a href="{{ url_for('dashboard') }}" class="logoIN">
-            <div class="nomPag">Arpa</div>
-          </a>
-        </div>
-        <div class="topnav">
-          <a href="{{ url_for('chat') }}"><i class="fa fa-comment-o"></i></a>
-          <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
-        </div>
-    </div>
-    <div class="input-container">
+      <div class="topnav-container">
+          <div>
+            <a href="{{ url_for('dashboard') }}" class="logoIN">
+              <div class="nomPag">Arpa</div>
+            </a>
+          </div>
+          <div class="topnav">
+            <a href="{{ url_for('chat') }}"><i class="fa fa-comment-o"></i></a>
+            <a href="{{ url_for('dashboard') }}"><i class="fa fa-bar-chart"></i></a>
+          </div>
+      </div>
+
+      <div class="chat-container" id="chat-container">
+        {% for message in chat_messages %}  
+            <div class="message {{ message.role }}">{{ message.content }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-container">
         <div class="input-box">
-            <textarea placeholder="Chatea con Arpa" rows="1" autofocus></textarea>
-            <button><i class="fa fa-send"></i></button>
+          <input type="text" id="user-input" placeholder="Chatea con Arpa">
+          <button id="send-button"><i class="fa fa-send"></i></button>
         </div>
-    </div>
-</body>
+      </div>
+      <script>
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const chatContainer = document.getElementById('chat-container');
+      
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keyup', function(event) {
+          if (event.key === 'Enter') {
+            sendMessage();
+          }
+        });
+
+        function sendMessage() {
+          const message = userInput.value.trim();
+          if (message === "") return;
+
+          const userMessageDiv = document.createElement('div');
+          userMessageDiv.classList.add('message', 'user');
+          userMessageDiv.textContent = message;
+          chatContainer.appendChild(userMessageDiv);
+
+          userInput.value = '';  // Clear the input field
+
+          // Send message to the server (using fetch or XMLHttpRequest)
+          fetch('/chat', {  // Replace '/chat' with your actual endpoint
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: message })
+          })
+          .then(response => response.json())
+          .then(data => {
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.classList.add('message', 'bot');
+            botMessageDiv.textContent = data.message; // Assuming the server returns a JSON object with a 'message' field
+            chatContainer.appendChild(botMessageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to bottom
+          })
+          .catch(error => console.error('Error:', error));
+
+
+          chatContainer.scrollTop = chatContainer.scrollHeight; // Auto-scroll to bottom
+        }
+      </script>
+  </body>
 </html>

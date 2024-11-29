@@ -5,17 +5,23 @@ import os
 import dotenv as dt
 import bcrypt as bc
 import secrets as sc
+import google.cloud as ai
+import uuid
+import pandas as pd
 
 #app set
 dt.load_dotenv()
 app = fk.Flask(__name__, static_folder='./static', template_folder='./templates')
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
 app.secret_key = os.getenv("SECRET_KEY")
 if "SECRET_KEY" not in os.environ:
        secret_key = sc.token_hex(32)
        os.environ["SECRET_KEY"] = secret_key
+       
+AICHAT = os.environ.get("GOOGLE_API_KEY")
+if AICHAT is None:
+    raise ValueError("aichat not set.")
 
 #DB set
 def getDBconnection():
@@ -167,20 +173,65 @@ def readFiles():
        return fk.render_template('readFiles.html')
     else:
        return fk.redirect(fk.url_for('login'))
-   
-@app.route('/chat')
-def chat():
-    if 'user_id' in fk.session:
-       return fk.render_template('chat.html')
-    else:
-       return fk.redirect(fk.url_for('login'))
-   
+
 @app.route('/filesData')
 def filesData():
     if 'user_id' in fk.session:
        return fk.render_template('filesData.html')
     else:
        return fk.redirect(fk.url_for('login'))
+
+@app.route('/upload', methods=['GET', 'POST'])
+def uploadExcel():
+    if fk.request.method == 'POST':
+        # Check if a file was uploaded
+        if 'file' not in fk.request.files:
+            return fk.render_template('uploadExcel.html', error='No file uploaded')
+        
+        file = fk.request.files['file']
+        
+        # Check if filename is empty
+        if file.filename == '':
+            return fk.render_template('uploadExcel.html', error='No selected file')
+        
+        # Check if file is an Excel file
+        if not file.filename.lower().endswith(('.xls', '.xlsx', '.xlsm', '.xlsb')):
+            return fk.render_template('uploadExcel.html', error='Invalid file type. Please upload an Excel file')
+        
+        try:
+            # Read the Excel file
+            df = pd.read_excel(file)
+            
+            # Get column names
+            columns = df.columns.tolist()
+            
+            # Calculate column totals (only for numeric columns)
+            column_totals = {}
+            for col in columns:
+                if pd.api.types.is_numeric_dtype(df[col]):
+                    column_totals[col] = df[col].sum()
+                else:
+                    column_totals[col] = 'N/A'
+            
+            # Calculate some basic statistics
+            stats = {
+                'Filas': len(df),
+                'Columnas': len(columns),
+                'Columnas con Números': sum(1 for col in columns if pd.api.types.is_numeric_dtype(df[col])),
+                'Columnas con Textos': sum(1 for col in columns if pd.api.types.is_string_dtype(df[col]))
+            }
+            
+            return fk.render_template('results.html', 
+                                   data=df.to_dict('records'), 
+                                   columns=columns, 
+                                   totals=column_totals,
+                                   stats=stats)
+        
+        except Exception as e:
+            return fk.render_template('uploadExcel.html', error=f'Error processing file: {str(e)}')
+    
+    # GET request - show upload form
+    return fk.render_template('uploadExcel.html')
    
 @app.route('/goods')
 def goods():
@@ -188,6 +239,48 @@ def goods():
        return fk.render_template('goods.html')
     else:
        return fk.redirect(fk.url_for('login'))
+
+@app.route('/chat')
+def chat():
+    if 'user_id' in fk.session:
+       return fk.render_template('chat.html')
+    else:
+       return fk.redirect(fk.url_for('login'))
+   
+@app.route("/aichat", methods=["POST"])
+def aichat():
+    user_message = fk.request.form.get("user_message")
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {AICHAT}" 
+    }
+
+    request_body = {
+        "queryInput": {
+            "text": {
+                "text": user_message
+            }
+        }
+    }
+
+    try:
+        response = fk.requests.post(AICHAT, headers=headers, json=request_body)
+        response.raise_for_status()  
+        response_json = response.json()
+        bot_message = response_json["queryResult"]["fulfillmentText"] 
+
+    except fk.requests.exceptions.RequestException as e:
+        print(f"Error with Gemini API: {e}")
+        bot_message = "I'm having trouble right now. Please try again later."
+
+
+    messages = fk.session.get('messages', [])
+    messages.append({"role": "user", "content": user_message})
+    messages.append({"role": "assistant", "content": bot_message})
+    fk.session['messages'] = messages
+
+    return fk.jsonify({"messages": messages[-2:]})
 
 @app.route('/logout')
 def logout():
@@ -200,5 +293,8 @@ def index():
     return fk.redirect(fk.url_for('login'))
 
 if __name__ == '__main__':
-    wt.serve(app, host='0.0.0.0', port=8080)
+    wt.serve(app, host='0.0.0.0', port=7070)
+
+
+
 
