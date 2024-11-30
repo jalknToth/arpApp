@@ -53,8 +53,7 @@ body {
   background-color: #0b00a2;
   position: relative;
   overflow: hidden; 
-  
-  
+  border-radius: 8px;
 }
 
 .logo:hover {

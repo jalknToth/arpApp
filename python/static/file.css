@@ -51,7 +51,8 @@ body {
   background-color: #0b00a2;
   position: relative;
   display: inline-flex;
-  text-decoration:none
+  text-decoration:none;
+  border-radius: 8px;
 }
 .logoIN::before {
   content: "";

@@ -121,6 +121,9 @@ https://www.w3schools.com
 * Git tutorial
 * Data Science Tutorial
 * Machine Learning
+* Groq AI Agent
+* Gemini AI Agent
+* Claude AI Agent
 
 ## Certificaciones
 
