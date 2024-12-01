@@ -59,15 +59,16 @@
           const message = userInput.value.trim();
           if (message === "") return;
 
+
           const userMessageDiv = document.createElement('div');
           userMessageDiv.classList.add('message', 'user');
           userMessageDiv.textContent = message;
           chatContainer.appendChild(userMessageDiv);
 
-          userInput.value = '';  // Clear the input field
+          userInput.value = '';  
 
-          // Send message to the server (using fetch or XMLHttpRequest)
-          fetch('/chat', {  // Replace '/chat' with your actual endpoint
+          
+          fetch('/chat', {  
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -75,7 +76,7 @@
             body: JSON.stringify({ message: message })
           })
           .then(response => response.json())
-          .then(data => {
+          .then(data => { 
             const botMessageDiv = document.createElement('div');
             botMessageDiv.classList.add('message', 'bot');
             botMessageDiv.textContent = data.message; // Assuming the server returns a JSON object with a 'message' field

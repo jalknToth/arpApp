@@ -7,7 +7,6 @@ import dotenv as dt
 import bcrypt as bc
 import secrets as sc
 import google.cloud as ai
-import uuid
 import pandas as pd
 import io
 import PyPDF2

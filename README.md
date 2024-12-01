@@ -58,6 +58,9 @@ app/
 │   ├── styleIN.css
 │   ├── chat.css
 │   └── file.css  
+├── src/             
+│   ├── Controllers.css
+│   └── Models.css 
 ├── templates/
 │   ├── alerts.html
 │   ├── audits.html
@@ -78,7 +81,8 @@ app/
 ├── .git                 
 ├── .env               
 ├── README.md                  
-└── app.py           
+└── app.py         
+
 ```
 ## Estructura PHP
 
