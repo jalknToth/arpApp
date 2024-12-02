@@ -50,62 +50,6 @@ Los beneficios clave de utilizar este RPA son:
   </tr>
 </table>
 
-## Estructura Python
-```
-app/
-├── static/             
-│   ├── style.css
-│   ├── styleIN.css
-│   ├── chat.css
-│   └── file.css  
-├── src/             
-│   ├── Controllers.css
-│   └── Models.css 
-├── templates/
-│   ├── alerts.html
-│   ├── audits.html
-│   ├── chat.html
-│   ├── filesData.html
-│   ├── ExcelData.html
-│   ├── PDFdata.html
-│   ├── persons.html                  
-│   ├── login.html       
-│   ├── register.html    
-│   ├── dashboard.html   
-│   ├── reports.html
-│   ├── goods.html
-│   ├── readExcel.html
-│   ├── readPDF.html
-│   └── readFiles.html        
-├── .gitignore           
-├── .git                 
-├── .env               
-├── README.md                  
-└── app.py         
-
-```
-## Estructura PHP
-
-```
-app/
-├── public/             
-│   └── style.css
-├── views/              
-│   ├── login.php       
-│   ├── register.php    
-│   ├── dashboard.php   
-│   └── error.php       
-├── src/               
-│   └── Auth.php            
-├── .gitignore           
-├── .git                 
-├── .env               
-├── README.md            
-├── composer.json       
-├── composer.lock       
-└── index.php           
-```
-
 ## Referencias 
 
 https://www.w3schools.com
