@@ -15,33 +15,6 @@ body {
   padding: 20px; 
 }
 
-/*
-.logo {
-  cursor: pointer;
-  margin: 1rem auto; 
-  width: 70px;
-  height: 70px;
-  background-color: #0b00a2;
-  position: relative;
-}
-
-.logo:hover {
-  background-color: #1d10d3;
-}
-
-.logo::before {
-  content: "";
-  width: 70px;
-  height: 70px;
-  background-color: #f5f9fa;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-*/
-
 .logoIN {
   cursor: pointer;
   margin: 1rem auto;
@@ -115,41 +88,6 @@ body {
   margin-bottom: 20px;
 }
 
-.search-container {
-  position: relative;
-}
-
-.search-container i {
-  position: absolute;
-  left: 25px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.search-container input {
-  padding-left: 40px;
-  width: 100%;
-  border: 2px solid #ccc;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 20px 60px;
-  font-size: 16px;
-  font-family: 'Open Sans', sans-serif;
-}
-
-#tabla {
-  width: 100%;
-  font-size: 16px;
-  font-family: 'Open Sans', sans-serif;
-  padding: 0 55px;
-}
-
-#tabla th, #tabla td {
-  text-align: left;
-  padding: 0.8rem;
-}
-
-
 .row {margin: 0 -5px;}
 
 .row:after {
@@ -206,17 +144,16 @@ body {
   }
 }
 
-@media (max-width: 768px) { /* Adjust the breakpoint as needed */
+@media (max-width: 768px) { 
   .hidden-on-medium {
     display: none;
   }
 
-  .header th:first-child { /* Nombre */
-    width: 60%; /* Adjust widths as needed for two-column layout */
+  .header th:first-child { 
+    width: 60%; 
   }
-  .header th:nth-child(2) { /* Compañía */
+  .header th:nth-child(2) { 
     width: 40%;
   }
-
 
 }
