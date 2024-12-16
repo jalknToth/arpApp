@@ -87,39 +87,6 @@ https://www.w3schools.com
   </tr>
 </table>
 
-## Instalación
-
-1. Clona el repositorio:
-
-```bash
-git clone https://github.com/jalknToth/arpApp.git
-```
-
-2. Crear un entorno virtual
-```bash
-python -m venv venv
-```
-
-3. Activar el entorno virtual
-```bash
-python source venv/bin/activate
-```
-
-4. Instala las dependencias:
-```bash
-pip install -r requirements.txt
-```
-
-## Ejecución
-
-1. Inicia la aplicación:
-
-```bash
-python app.py
-```
-
-2. Abre tu navegador web y visita `http://127.0.0.1:8080/`
-
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Por favor, abre un *issue* o envía un *pull request*.
