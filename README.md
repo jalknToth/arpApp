@@ -1,6 +1,6 @@
 # arpApp
 
-Es una plantilla html de una webApp para Automizar Procesos de Auditoria (RPA).
+WebApp para Automizar Procesos de Auditoria (RPA).
 
 ## Introduccion y contextualización
 
