@@ -2,10 +2,6 @@
 
 Es una plantilla html de una webApp para Automizar Procesos de Auditoria (RPA).
 
-# Link
-
-https://jalkntoth.github.io/arpApp/
-
 ## Introduccion y contextualización
 
 La auditoría es un proceso crucial para asegurar el buen manejo de recursos de una empresa. Tradicionalmente, estas auditorías involucran tareas repetitivas y manuales que consumen mucho tiempo y recursos.  Este proyecto de RPA (Automatización Robótica de Procesos) busca automatizar esas tareas, optimizando el proceso de auditoría y liberando a los auditores para que se centren en análisis más estratégicos.  Este RPA se enfoca en el análisis de archivos en Excel, y se ha desarrollado para identificar fraudes o irregularidades en el manejo de los recursos.
